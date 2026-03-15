@@ -1,0 +1,263 @@
+/* Reduce extra space in service long descriptions, especially on mobile */
+.service-longdesc {
+  margin-bottom: 1rem !important;
+  line-height: 1.5 !important;
+  word-break: break-word;
+}
+@media (max-width: 640px) {
+  .service-longdesc {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.75rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 217 91% 60%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Luxury UI Elements */
+.glass-card {
+  @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+}
+
+.luxury-gradient {
+  @apply bg-gradient-to-br from-blue-700 to-blue-900;
+}
+
+.luxury-text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-700;
+}
+
+.luxury-button {
+  @apply bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 
+         shadow-lg shadow-blue-700/30 transition-all duration-300 hover:shadow-xl hover:shadow-blue-700/40;
+}
+
+/* Enhanced animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px 5px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Smooth transitions */
+.smooth-transition {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Hover effects */
+.hover-lift {
+  @apply transition-transform duration-300 hover:-translate-y-2;
+}
+
+.hover-glow {
+  @apply transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/20;
+}
+
+/* Additional CSS for animations */
+.bg-gradient-wave {
+  background: linear-gradient(180deg, transparent 0%, white 100%);
+  mask-image: url("data:image/svg+xml,%3Csvg width='1440' height='160' viewBox='0 0 1440 160' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 64L48 74.7C96 85 192 107 288 128C384 149 480 171 576 160C672 149 768 107 864 96C960 85 1056 107 1152 106.7C1248 107 1344 85 1392 74.7L1440 64V320H1392C1344 320 1248 320 1152 320C1056 320 960 320 864 320C768 320 672 320 576 320C480 320 384 320 288 320C192 320 96 320 48 320H0V64Z' fill='white'/%3E%3C/svg%3E%0A");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+}
+
+.services-transition {
+  position: relative;
+}
+
+.services-transition::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background: linear-gradient(180deg, rgba(30, 41, 59, 1) 0%, rgba(30, 41, 59, 0) 100%);
+  z-index: -1;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.rotate-y-5 {
+  transform: rotateY(5deg);
+}
+
+.rotate-x-5 {
+  transform: rotateX(5deg);
+}
+
+.shadow-glow {
+  box-shadow: 0 0 15px 0 rgba(59, 130, 246, 0.5);
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.shimmer-effect::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 2.5s infinite;
+}
+
+/* Visible horizontal scrollbar for client logos carousel */
+.client-logos-scrollbar {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #94A3B8 #F1F5F9; /* thumb, track */
+}
+
+.client-logos-scrollbar::-webkit-scrollbar {
+  height: 10px;
+}
+
+.client-logos-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 9999px;
+}
+
+.client-logos-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #94A3B8; /* slate-400 */
+  border-radius: 9999px;
+  border: 2px solid #f1f5f9;
+}
+
+.client-logos-scrollbar:focus {
+  outline: 3px solid rgba(59,130,246,0.18); /* subtle blue focus ring */
+  outline-offset: 3px;
+}
+.NavigationMenuContent {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  overflow: visible !important;
+}
