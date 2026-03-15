@@ -124,7 +124,7 @@ export default function QATestingPage() {
       <section className="py-24 bg-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 skew-x-[-12deg] translate-x-20 z-0" />
         <div className="container mx-auto px-4 relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -250,16 +250,27 @@ export default function QATestingPage() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="flex flex-col justify-center"
+              className="flex flex-col justify-center w-full"
             >
-              <div className="bg-white/5 backdrop-blur-md p-10 rounded-[3rem] border border-white/10 relative">
-                <div className="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-blue-600/20 blur-[80px]" />
-                <h2 className="text-2xl font-bold mb-8">Industry-Ready QA Expertise</h2>
-                <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white/5 backdrop-blur-md p-6 sm:p-8 md:p-10 rounded-3xl border border-white/10 relative overflow-hidden">
+
+                {/* Blur Background */}
+                <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 bg-blue-600/20 blur-[80px]" />
+
+                <h2 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8">
+                  Industry-Ready QA Expertise
+                </h2>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {industries.map((industry, index) => (
-                    <div key={index} className="flex items-center gap-3 py-3 px-4 bg-white/5 rounded-xl border border-white/10">
-                      <div className="w-2 h-2 rounded-full bg-blue-400" />
-                      <span className="font-semibold text-slate-300 text-sm">{industry}</span>
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 py-2 sm:py-3 px-3 sm:px-4 bg-white/5 rounded-xl border border-white/10"
+                    >
+                      <div className="w-2 h-2 rounded-full bg-blue-400 shrink-0" />
+                      <span className="font-semibold text-slate-300 text-sm sm:text-base">
+                        {industry}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -278,9 +289,9 @@ export default function QATestingPage() {
               <h2 className="text-3xl font-bold mb-10 text-slate-900">Expected Business Outcomes</h2>
               <div className="grid grid-cols-1 gap-6">
                 {businessOutcomes.map((outcome, index) => (
-                  <motion.div 
+                  <motion.div
                     whileHover={{ x: 10 }}
-                    key={index} 
+                    key={index}
                     className="flex items-start gap-4 p-4 bg-white rounded-2xl shadow-sm"
                   >
                     <CheckCircle className="h-6 w-6 text-blue-600 mt-0.5 flex-shrink-0" />
@@ -314,7 +325,7 @@ export default function QATestingPage() {
       {/* CTA Section - Impactful Design */}
       <section className="py-24 bg-slate-50 relative">
         <div className="container mx-auto px-4 text-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}

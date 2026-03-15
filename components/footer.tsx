@@ -77,7 +77,7 @@ export default function Footer() {
           
           {/* Copyright */}
           <div className="order-2 md:order-1 mt-4 md:mt-0 text-center md:text-left">
-            <p>© NathCorp {new Date().getFullYear()} Copyright – USA | India | Dubai, UAE</p>
+            <p>© NathCorp {new Date().getFullYear()} – USA | India | Dubai, UAE</p>
           </div>
 
           {/* Legal Links (Redesigned as horizontal links) */}

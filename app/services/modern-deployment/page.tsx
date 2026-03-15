@@ -72,11 +72,11 @@ const methodologies = [
 
 const toolsStack = [
   { name: "Jenkins", category: "CI/CD", logo: "https://www.jenkins.io/images/logos/jenkins/jenkins.svg" },
-  { name: "GitLab CI", category: "CI/CD", logo: "https://about.gitlab.com/images/press/logo/svg/gitlab-logo-gray-rgb.svg" },
+  { name: "GitLab CI", category: "CI/CD", logo: "https://icon.icepanel.io/Technology/svg/GitLab.svg" },
   { name: "Docker", category: "Containerization", logo: "https://www.docker.com/wp-content/uploads/2022/03/vertical-logo-monochromatic.png" },
-  { name: "Kubernetes", category: "Orchestration", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1055px-Kubernetes_logo_without_workmark.svg.png" },
-  { name: "Terraform", category: "IaC", logo: "https://www.datocms-assets.com/2885/1629941242-logo-terraform-main.svg" },
-  { name: "Ansible", category: "Configuration", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ansible_Logo.png/800px-Ansible_Logo.png" },
+  { name: "Kubernetes", category: "Orchestration", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/960px-Kubernetes_logo_without_workmark.svg.png?_=20190926210707" },
+  { name: "Terraform", category: "IaC", logo: "https://img.icons8.com/color/512/terraform.png" },
+  { name: "Ansible", category: "Configuration", logo: "https://icon.icepanel.io/Technology/svg/Ansible.svg" },
   { name: "Grafana", category: "Visualization", logo: "https://grafana.com/static/img/menu/grafana2.svg" },
   { name: "Azure Monitor", category: "Observability", logo: "https://swimburger.net/media/ppnn3pcl/azure.png" },
 ]
@@ -105,7 +105,7 @@ export default function ModernDeploymentPage() {
         <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50 skew-x-12 translate-x-20 z-0" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-20">
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -170,10 +170,10 @@ export default function ModernDeploymentPage() {
                   className="group relative aspect-square bg-white/10 rounded-2xl p-4 flex flex-col items-center justify-center border border-white/5 hover:bg-white/15 transition-all"
                 >
                   <div className="h-12 w-12 relative mb-3 transition-all duration-500">
-                    <img 
-                      src={tool.logo} 
-                      alt={tool.name} 
-                      className="object-contain w-full h-full" 
+                    <img
+                      src={tool.logo}
+                      alt={tool.name}
+                      className="object-contain w-full h-full"
                     />
                   </div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-emerald-400 transition-colors">{tool.name}</span>

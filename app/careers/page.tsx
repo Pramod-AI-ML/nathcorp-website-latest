@@ -134,6 +134,7 @@ export default function CareersPage() {
     portfolio: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [fileError, setFileError] = useState<string>("")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -143,9 +144,28 @@ export default function CareersPage() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     const file = files && files[0]
-    if (file) {
-      setFormData((prev) => ({ ...prev, resume: file }))
+
+    if (!file) return
+
+    const allowedTypes = [
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ]
+
+    if (!allowedTypes.includes(file.type)) {
+      setFileError("Only PDF and DOCX files are allowed.")
+      e.target.value = ""
+      return
     }
+
+    if (file.size > 10 * 1024 * 1024) {
+      setFileError("File size must be less than 10MB.")
+      e.target.value = ""
+      return
+    }
+
+    setFileError("")
+    setFormData((prev) => ({ ...prev, resume: file }))
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -192,7 +212,7 @@ export default function CareersPage() {
             {/* Light gradient overlay to improve readability */}
             <div className="absolute inset-0 bg-black/30" />
           </div>
-          
+
           {/* Main content container should be above background layers */}
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
@@ -205,7 +225,7 @@ export default function CareersPage() {
               </Link>
             </div>
           </div>
-          
+
           {/* Bottom fade to content: dark to transparent */}
           <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-black/70 to-transparent" />
         </section>
@@ -490,7 +510,9 @@ export default function CareersPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label htmlFor="firstName">First Name</Label>
+                      <Label htmlFor="firstName">
+                        First Name <span className="text-red-500">*</span>
+                      </Label>
                       <Input
                         id="firstName"
                         name="firstName"
@@ -502,7 +524,9 @@ export default function CareersPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="lastName">Last Name</Label>
+                      <Label htmlFor="lastName">
+                        Last Name <span className="text-red-500">*</span>
+                      </Label>
                       <Input
                         id="lastName"
                         name="lastName"
@@ -514,7 +538,9 @@ export default function CareersPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">
+                        Email <span className="text-red-500">*</span>
+                      </Label>
                       <Input
                         id="email"
                         name="email"
@@ -527,11 +553,13 @@ export default function CareersPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="phone">Phone</Label>
-                      <Input 
-                        id="phone" 
-                        name="phone" 
-                        value={formData.phone} 
+                      <Label htmlFor="phone">
+                        Phone <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
                         onChange={handleChange}
                         className="border-slate-300 focus:border-blue-500"
                       />
@@ -539,7 +567,9 @@ export default function CareersPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="resume">Resume *</Label>
+                    <Label htmlFor="resume">
+                      Resume <span className="text-red-500">*</span>
+                    </Label>
                     <div className="border-2 border-dashed border-slate-200 hover:border-blue-300 rounded-lg p-8 text-center transition-colors">
                       <Upload className="h-12 w-12 mx-auto text-slate-400 mb-4" />
                       <p className="text-lg font-medium text-slate-600 mb-2">
@@ -550,7 +580,7 @@ export default function CareersPage() {
                         id="resume"
                         name="resume"
                         type="file"
-                        accept=".pdf,.docx,.doc"
+                        accept=".pdf,.docx"
                         onChange={handleFileChange}
                         className="hidden"
                         required
@@ -566,6 +596,9 @@ export default function CareersPage() {
                       >
                         {formData.resume ? "Change File" : "Select File"}
                       </Button>
+                      {fileError && (
+                        <p className="text-red-500 text-sm mt-2">{fileError}</p>
+                      )}
                     </div>
                   </div>
 
@@ -622,6 +655,7 @@ export default function CareersPage() {
                     By submitting your resume, you agree to be contacted by our recruitment team regarding potential opportunities that match your profile.
                   </p>
                 </form>
+
               </CardContent>
             </Card>
           </div>

@@ -154,7 +154,7 @@ export default function AIServicesPage() {
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4 opacity-60">
                 {techStack.map((tech) => (
-                  <span key={tech} className="px-3 py-1 bg-slate-100 rounded-full text-xs font-bold text-slate-500 border border-slate-200">
+                  <span key={tech} className="px-4 py-2 bg-slate-100 rounded-full text-sm font-bold text-slate-900 border border-slate-500">
                     {tech}
                   </span>
                 ))}
