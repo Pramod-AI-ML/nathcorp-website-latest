@@ -106,7 +106,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6 }}
               className="text-center mb-16"
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-slate-800 to-blue-800 bg-clip-text text-transparent leading-tight md:leading-[1.15]">
+              <h2 className="text-4xl md:text-5xl font-bold mb-2 py-4 bg-gradient-to-r from-slate-800 to-blue-800 bg-clip-text text-transparent leading-tight md:leading-[1.15]">
                 Serving Clients Across the Globe
               </h2>
               <p className="text-lg text-slate-600 max-w-3xl mx-auto">
