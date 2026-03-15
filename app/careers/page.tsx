@@ -236,7 +236,7 @@ export default function CareersPage() {
             <div className="max-w-3xl mx-auto text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 text-slate-800">Why Join NathCorp?</h2>
               <p className="text-lg text-slate-600">
-                We offer more than just a job—we provide a career where you can grow, innovate, and make an impact
+                We offer more than just a job—we provide a career where you can grow, innovate, and make an impact.
               </p>
             </div>
 
@@ -570,12 +570,19 @@ export default function CareersPage() {
                     <Label htmlFor="resume">
                       Resume <span className="text-red-500">*</span>
                     </Label>
-                    <div className="border-2 border-dashed border-slate-200 hover:border-blue-300 rounded-lg p-8 text-center transition-colors">
+
+                    <div className="border-2 border-dashed border-slate-200 hover:border-blue-300 rounded-lg p-6 md:p-8 text-center transition-colors overflow-hidden">
+
                       <Upload className="h-12 w-12 mx-auto text-slate-400 mb-4" />
-                      <p className="text-lg font-medium text-slate-600 mb-2">
+
+                      <p className="text-sm md:text-lg font-medium text-slate-600 mb-2 break-all max-w-full px-2 leading-relaxed">
                         {formData.resume ? formData.resume.name : "Upload your resume"}
                       </p>
-                      <p className="text-sm text-slate-500 mb-4">PDF or DOCX format, max 10MB</p>
+
+                      <p className="text-sm text-slate-500 mb-4">
+                        PDF or DOCX format, max 10MB
+                      </p>
+
                       <Input
                         id="resume"
                         name="resume"
@@ -585,6 +592,7 @@ export default function CareersPage() {
                         className="hidden"
                         required
                       />
+
                       <Button
                         type="button"
                         variant="outline"
@@ -596,9 +604,11 @@ export default function CareersPage() {
                       >
                         {formData.resume ? "Change File" : "Select File"}
                       </Button>
+
                       {fileError && (
                         <p className="text-red-500 text-sm mt-2">{fileError}</p>
                       )}
+
                     </div>
                   </div>
 
@@ -655,7 +665,6 @@ export default function CareersPage() {
                     By submitting your resume, you agree to be contacted by our recruitment team regarding potential opportunities that match your profile.
                   </p>
                 </form>
-
               </CardContent>
             </Card>
           </div>

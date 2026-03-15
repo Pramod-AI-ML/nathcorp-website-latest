@@ -187,7 +187,7 @@ export default function CopilotServicesPage() {
                     className="w-full md:w-[45%] ml-16 md:ml-0"
                   >
                     <div className="p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:border-blue-600 transition-colors duration-500">
-                      <h4 className="text-blue-600 font-bold uppercase tracking-widest text-xs mb-2">Phase 0{idx + 1}</h4>
+                      <h4 className="text-blue-600 font-bold uppercase tracking-widest text-xs mb-2">Phase {idx + 1}</h4>
                       <h3 className="text-xl font-bold text-slate-900 mb-4">{pkg.title}</h3>
                       <p className="text-slate-600 text-sm">{pkg.val}</p>
                     </div>
