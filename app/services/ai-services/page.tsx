@@ -9,10 +9,10 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Button } from "@/components/ui/button"
 import ContactFormModal from "@/components/contact-form-modal"
 import { Card, CardContent } from "@/components/ui/card"
-import { 
-  CheckCircle, Bot, Brain, Zap, Workflow, FileText, 
-  Settings, Code, Shield, BarChart, TrendingUp, Sparkles, 
-  Database, Cpu, MessageSquare, Search, Layers 
+import {
+  CheckCircle, Bot, Brain, Zap, Workflow, FileText,
+  Settings, Code, Shield, BarChart, TrendingUp, Sparkles,
+  Database, Cpu, MessageSquare, Search, Layers
 } from "lucide-react"
 import Image from "next/image"
 import MetaTags from "@/components/seo/meta-tags"
@@ -25,7 +25,7 @@ const aiDevelopmentServices = [
       "NathCorp engineers context-aware AI assistants that integrate directly into proprietary workflows. We move beyond basic chat to create assistants that accelerate output and optimize support cycles with high precision.",
     icon: Bot,
     color: "from-blue-600 to-cyan-500",
-    image: "/images/Bot.png",
+    image: "/images/bot.png",
   },
   {
     title: "Agentic Workflow Automations",
@@ -174,13 +174,15 @@ export default function AIServicesPage() {
                   <Card className="border-0 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full bg-white">
                     <CardContent className="p-0">
                       {service.image && (
-                        <div className="h-48 overflow-hidden bg-white flex items-center justify-center">
+                        <div className="w-full h-48 sm:h-56 md:h-48 bg-white flex items-center justify-center overflow-hidden">
                           <Image
                             src={service.image}
                             alt={service.title}
-                            width={400}
-                            height={300}
-                            className="object-contain w-full h-full p-8"
+                            width={300}
+                            height={200}
+                            sizes="(max-width: 768px) 100vw, 300px"
+                            priority={index === 0}
+                            className="object-contain w-full h-full p-4 sm:p-6 md:p-8"
                           />
                         </div>
                       )}
@@ -241,11 +243,11 @@ export default function AIServicesPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto bg-slate-900 rounded-[3rem] p-12 md:p-16 text-white relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px]"></div>
-              
+
               <h3 className="text-3xl md:text-4xl font-bold mb-10 text-center relative z-10">
                 Why Choose NathCorp for AI Engineering
               </h3>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 relative z-10">
                 {businessOutcomes.map((outcome, index) => (
                   <motion.div

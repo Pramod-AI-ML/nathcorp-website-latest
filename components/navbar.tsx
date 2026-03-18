@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { Menu, ArrowRight, ChevronDown } from "lucide-react"; // Added ChevronDown for dropdown icon
+import { Menu, ArrowRight, ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -25,58 +25,38 @@ const navItems = [
     title: "Services",
     href: "/services",
     submenu: [
-      {
-        title: "App Development",
-        href: "/services/app-development",
-        description: "Custom mobile and web applications",
-      },
-      {
-        title: "Digital Transformation",
-        href: "/services/digital-transformation",
-        description: "End-to-end business modernization",
-      },
+      { title: "App Development", href: "/services/app-development", description: "Custom mobile and web applications" },
+      { title: "Digital Transformation", href: "/services/digital-transformation", description: "End-to-end business modernization" },
       { title: "QA & Testing", href: "/services/qa-testing", description: "Comprehensive quality assurance services" },
       { title: "Support Services", href: "/services/support", description: "24/7 technical support and maintenance" },
-      {
-        title: "Technology Consulting",
-        href: "/services/technology-consulting",
-        description: "Strategic technology guidance",
-      },
+      { title: "Technology Consulting", href: "/services/technology-consulting", description: "Strategic technology guidance" },
       { title: "AI Services", href: "/services/ai-services", description: "Artificial intelligence solutions" },
       { title: "DevOps", href: "/services/devops", description: "Development and operations automation" },
       { title: "Cloud Services", href: "/services/cloud-services", description: "Cloud migration and management" },
-      {
-        title: "Active Directory",
-        href: "/services/active-directory",
-        description: "Excellent work environment solutions",
-      },
+      { title: "Active Directory", href: "/services/active-directory", description: "Excellent work environment solutions" },
       { title: "Security", href: "/services/security", description: "Comprehensive security services" },
-      {
-        title: "Modern Deployment",
-        href: "/services/modern-deployment",
-        description: "Efficient deployment solutions",
-      },
+      { title: "Modern Deployment", href: "/services/modern-deployment", description: "Efficient deployment solutions" },
       { title: "Data Management", href: "/services/data-management", description: "Data organization and analytics" },
       { title: "All Services", href: "/services", description: "Explore all our services" }
     ],
   },
-  {
-    title: "Products",
-    href: "/products",
-  },
+  { title: "Products", href: "/products" },
   { title: "Industries", href: "/industries" },
   { title: "Careers", href: "/careers" },
-  // { title: "Testimonials", href: "/testimonials" },
   { title: "Contact Us", href: "/contact" },
 ];
 
 export default function Navbar({ forceSolid }: { forceSolid?: boolean } = {}) {
   const router = useRouter();
   const pathname = usePathname();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
   const [showClickAnimation, setShowClickAnimation] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+
+  // ✅ NEW: mobile state
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const isTransparentHeader = !forceSolid;
 
@@ -86,6 +66,25 @@ export default function Navbar({ forceSolid }: { forceSolid?: boolean } = {}) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isTransparentHeader]);
+
+  // ✅ CLOSE MENU ON RESIZE
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (e.matches) {
+        setMobileOpen(false);
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  // ✅ CLOSE ON ROUTE CHANGE
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -107,6 +106,7 @@ export default function Navbar({ forceSolid }: { forceSolid?: boolean } = {}) {
       )}
     >
       <div className="container mx-auto px-4 flex h-13 items-center justify-between">
+
         <Link href="/" className="flex items-center">
           <motion.img
             src="/images/logo.png"
@@ -121,7 +121,7 @@ export default function Navbar({ forceSolid }: { forceSolid?: boolean } = {}) {
           <NavigationMenu>
             <NavigationMenuList className="flex space-x-6">
               {navItems.map((item) => {
-                // ✅ SPECIAL CASE: Services mega menu (auto collision handling)
+
                 if (item.title === "Services" && item.submenu) {
                   return (
                     <NavigationMenuItem key={item.title}>
@@ -133,20 +133,18 @@ export default function Navbar({ forceSolid }: { forceSolid?: boolean } = {}) {
                               "text-sm font-medium bg-transparent px-0 py-0 hover:text-blue-600 transition-colors cursor-pointer",
                               !isScrolled && "text-white hover:text-white/80"
                             )}
-                            onClick={(e) => {
-                              handleNavClick(e as any);
-                            }}
+                            onClick={(e) => handleNavClick(e as any)}
                           >
                             {item.title}
-                            <ChevronDown className="inline-block ml-1 h-4 w-4 align-middle transition-transform duration-200" style={{ transform: servicesOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+                            <ChevronDown className="inline-block ml-1 h-4 w-4" />
                           </button>
                         </PopoverTrigger>
 
                         <PopoverContent
                           side="bottom"
-                          align="end"                // ✅ prefers opening towards left when near right edge
+                          align="end"
                           sideOffset={12}
-                          collisionPadding={16}      // ✅ keeps 16px safe area from screen edges
+                          collisionPadding={16}
                           className="p-0 border-0 bg-transparent shadow-none"
                         >
                           <div className="bg-white shadow-lg border border-gray-200 rounded-lg overflow-hidden w-[min(650px,calc(100vw-2rem))]">
@@ -161,7 +159,7 @@ export default function Navbar({ forceSolid }: { forceSolid?: boolean } = {}) {
                                         className="block p-3 rounded-md hover:bg-slate-50 transition-colors group"
                                         onClick={(e) => {
                                           handleNavClick(e as any);
-                                          setServicesOpen(false); // ✅ close after click
+                                          setServicesOpen(false);
                                         }}
                                       >
                                         <div className="text-sm font-semibold text-slate-900 group-hover:text-blue-600">
@@ -198,19 +196,13 @@ export default function Navbar({ forceSolid }: { forceSolid?: boolean } = {}) {
                   );
                 }
 
-                // ✅ everything else stays same
-                return item.submenu ? (
-                  <NavigationMenuItem key={item.title}>
-                    {/* your existing submenu code for other menus (if any) */}
-                  </NavigationMenuItem>
-                ) : (
+                return (
                   <NavigationMenuItem key={item.title}>
                     <Link href={item.href} legacyBehavior passHref>
                       <NavigationMenuLink
                         className={cn(
-                          "text-sm font-medium relative cursor-pointer hover:text-blue-600 transition-colors",
-                          !isScrolled && "text-white hover:text-white/80",
-                          pathname === item.href && "font-bold underline decoration-2 underline-offset-4"
+                          "text-sm font-medium cursor-pointer hover:text-blue-600",
+                          !isScrolled && "text-white"
                         )}
                         onClick={handleNavClick}
                       >
@@ -224,38 +216,35 @@ export default function Navbar({ forceSolid }: { forceSolid?: boolean } = {}) {
           </NavigationMenu>
         </div>
 
-        {/* Mobile Nav */}
-        <Sheet>
+        {/* ✅ CONTROLLED MOBILE NAV */}
+        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetTrigger asChild className="lg:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              className={!isScrolled ? "text-white hover:text-white/80" : ""}
-            >
+            <Button variant="ghost" size="icon">
               <Menu className="h-6 w-6" />
-              <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-white/95 backdrop-blur-md overflow-y-auto">
+
+          <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-white/95 overflow-y-auto">
             <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+
             <div className="flex flex-col gap-6 py-6">
               {navItems.map((item) => (
                 <div key={item.title} className="border-b pb-2">
+
                   {item.submenu ? (
                     <div className="space-y-3">
                       <div className="text-lg font-medium flex items-center">
                         {item.title}
-                        <ChevronDown className="ml-1 h-4 w-4 align-middle" />
+                        <ChevronDown className="ml-1 h-4 w-4" />
                       </div>
+
                       <div className="pl-4 space-y-2">
                         {item.submenu.map((sub) => (
                           <Link
                             key={sub.title}
                             href={sub.href}
-                            className={cn(
-                              "block text-sm hover:text-blue-600 transition-colors",
-                              sub.title === "All Services" ? "font-bold text-blue-600 pt-2" : ""
-                            )}
+                            onClick={() => setMobileOpen(false)}   // ✅ FIX
+                            className="block text-sm hover:text-blue-600"
                           >
                             {sub.title}
                           </Link>
@@ -265,19 +254,20 @@ export default function Navbar({ forceSolid }: { forceSolid?: boolean } = {}) {
                   ) : (
                     <Link
                       href={item.href}
-                      className={cn(
-                        "text-lg font-medium transition-colors",
-                        pathname === item.href && "font-bold text-blue-700"
-                      )}
+                      onClick={() => setMobileOpen(false)}   // ✅ FIX
+                      className="text-lg font-medium"
                     >
                       {item.title}
                     </Link>
                   )}
+
                 </div>
               ))}
             </div>
+
           </SheetContent>
         </Sheet>
+
       </div>
     </motion.header>
   );

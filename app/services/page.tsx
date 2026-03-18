@@ -25,6 +25,7 @@ import Image from "next/image"
 import MetaTags from "@/components/seo/meta-tags"
 import { ServiceSchema } from "@/components/seo/schema-markup"
 
+
 const allServices = [
   // AI SERVICES
   {
@@ -75,7 +76,7 @@ const allServices = [
       "Identity is the foundation of modern IT security. NathCorp helps enterprises design, modernize, and manage Active Directory and cloud identity environments—ensuring secure access, simplified management, and seamless integration across on-prem and cloud systems.",
     whyChoose: [
       "Deep AD and Entra ID expertise",
-      "Identity-first cloud security approach", 
+      "Identity-first cloud security approach",
       "Proven enterprise migration experience",
       "Secure, scalable access architecture",
     ],
@@ -122,7 +123,7 @@ const allServices = [
     image: "/images/cloud-slide.jpg",
     features: [
       "Cloud readiness assessment & TCO analysis",
-      "Azure cloud and hybrid architecture design", 
+      "Azure cloud and hybrid architecture design",
       "Secure Azure infrastructure deployment",
       "On-prem to cloud workload migration",
       "Cloud risk assessment & cost optimization",
@@ -133,7 +134,7 @@ const allServices = [
     whyChoose: [
       "Azure-first and hybrid cloud expertise",
       "Business-aligned cloud strategy",
-      "Zero-disruption migration approach", 
+      "Zero-disruption migration approach",
       "Secure, governed enterprise environments",
       "Cost-optimized deployments saving up to 40%",
     ],
@@ -316,7 +317,7 @@ const allServices = [
     }
   },
 
-   // SUPPORT SERVICES
+  // SUPPORT SERVICES
   {
     id: "support",
     title: "Support Services",
@@ -381,6 +382,10 @@ const allServices = [
 ];
 
 
+
+
+
+
 export default function ServicesPage() {
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
@@ -404,64 +409,91 @@ export default function ServicesPage() {
 
       <main className="min-h-screen">
         <Navbar />
-         <ServicesCarousel />
+        <ServicesCarousel />
 
         {/* Services Overview */}
         <section className="py-20 bg-gradient-to-b from-slate-50 to-white">
           <div className="container mx-auto px-4">
             <Tabs defaultValue="ai-services" className="w-full">
-              <div className="flex justify-center mb-12 pb-2 px-2 relative z-40">
-                <TabsList className="bg-transparent p-0 flex flex-nowrap justify-start gap-2 w-full max-w-full overflow-x-auto scrollbar-thin scrollbar-thumb-blue-200 scrollbar-track-transparent">
-                  {allServices.map((service) => (
-                    <TabsTrigger
-                      key={service.id}
-                      value={service.id}
-                      className="flex items-center gap-1.5 rounded-full px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs sm:text-sm bg-white/0 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-md transition-all duration-200 hover:shadow-sm flex-shrink-0 min-w-[120px]"
-                    >
-                      <span className="inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-white/10 text-blue-600 flex-shrink-0">
-                        <service.icon size={14} className="sm:w-4 sm:h-4 w-3.5 h-3.5" />
-                      </span>
-                      <span className="truncate max-w-[100px] sm:max-w-none">{service.title}</span>
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
+
+              {/* Tabs Header */}
+              <div className="mb-12 pb-2 relative z-40">
+
+                {/* Scroll Container */}
+                <div className="overflow-x-auto overflow-y-hidden scroll-smooth">
+
+                  <TabsList className="bg-transparent p-0 flex w-max min-w-full items-center gap-2 px-2">
+                    {allServices.map((service) => (
+                      <TabsTrigger
+                        key={service.id}
+                        value={service.id}
+                        className="flex items-center gap-1.5 rounded-full px-3 py-2 text-xs sm:text-sm bg-white/0 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-md transition-all duration-200 hover:shadow-sm flex-shrink-0 whitespace-nowrap"
+                      >
+                        <span className="inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-white/10 text-blue-600 flex-shrink-0">
+                          <service.icon size={14} className="sm:w-4 sm:h-4 w-3.5 h-3.5" />
+                        </span>
+
+                        <span className="whitespace-nowrap">
+                          {service.title}
+                        </span>
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+
+                </div>
               </div>
 
+              {/* Tabs Content */}
               {allServices.map((service) => (
                 <TabsContent key={service.id} value={service.id}>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+                    {/* LEFT CONTENT */}
                     <div>
                       <div className="relative mb-6">
                         <div className="absolute left-0 top-0 w-1 h-24 bg-gradient-to-b from-blue-600 to-indigo-600 rounded-full"></div>
+
                         <div className="pl-6">
-                          <div
-                            className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl ${service.color} text-white mb-4 shadow-lg`}
-                          >
+                          <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl ${service.color} text-white mb-4 shadow-lg`}>
                             <service.icon size={32} />
                           </div>
+
                           <h3 className="text-4xl font-bold mb-2">
                             <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
                               {service.subtitle}
                             </span>
                           </h3>
-                          <p className="text-xl text-blue-600 mb-4">{service.description}</p>
+
+                          <p className="text-xl text-blue-600 mb-4">
+                            {service.description}
+                          </p>
                         </div>
                       </div>
 
-                      <p className="text-slate-600 mb-4 text-base leading-normal sm:text-lg sm:leading-relaxed pl-6 service-longdesc">{service.longDescription}</p>
+                      <p className="text-slate-600 mb-4 text-base leading-normal sm:text-lg sm:leading-relaxed pl-6">
+                        {service.longDescription}
+                      </p>
 
-                      <h4 className="text-xl font-semibold text-slate-800 mb-4 pl-6">What We Deliver</h4>
+                      <h4 className="text-xl font-semibold text-slate-800 mb-4 pl-6">
+                        What We Deliver
+                      </h4>
+
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 pl-6">
                         {service.features.map((feature, index) => (
                           <div key={index} className="flex items-start gap-3">
-                            <div className="mt-1 text-blue-600"><CheckCircle className="h-5 w-5" /></div>
+                            <div className="mt-1 text-blue-600">
+                              <CheckCircle className="h-5 w-5" />
+                            </div>
                             <span className="text-slate-700">{feature}</span>
                           </div>
                         ))}
                       </div>
 
                       <div className="pl-6">
-                        <Button className="luxury-button rounded-full px-8 py-6 text-white text-lg shadow-xl hover:shadow-2xl transition-shadow duration-300" asChild>
+                        <Button
+                          className="luxury-button rounded-full px-8 py-6 text-white text-lg shadow-xl hover:shadow-2xl transition-shadow duration-300"
+                          asChild
+                        >
                           <a href={`/services/${service.id}`}>
                             Learn More <ArrowRight className="ml-2 h-5 w-5" />
                           </a>
@@ -469,52 +501,75 @@ export default function ServicesPage() {
                       </div>
                     </div>
 
+                    {/* RIGHT CARD */}
                     <div className="mt-6 lg:mt-0">
-  <div className="relative">
+                      <div className="relative">
 
-    <Card className="glass-card relative z-10 rounded-2xl overflow-hidden border-0 transition-transform hover:scale-[1.02] hover:shadow-xl">
-      <CardContent className="p-0">
-        {/* Top Banner Color or Image with overlay title */}
-        {service.image ? (
-          <div className="h-64 relative">
-            <Image src={service.image} alt={service.title} fill className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
-            <div className="absolute left-6 bottom-6">
-              <h5 className="text-white text-lg font-semibold drop-shadow">{service.title}</h5>
-              <p className="text-white/90 text-sm">{service.subtitle}</p>
-            </div>
-          </div>
-        ) : (
-          <div className={`h-64 ${service.color} relative`}>
-            <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-transparent" />
-            <div className="absolute left-6 bottom-6">
-              <h5 className="text-white text-lg font-semibold">{service.title}</h5>
-              <p className="text-white/90 text-sm">{service.subtitle}</p>
-            </div>
-          </div>
-        )}
+                        <Card className="glass-card relative z-10 rounded-2xl overflow-hidden border-0 transition-transform hover:scale-[1.02] hover:shadow-xl">
+                          <CardContent className="p-0">
 
-        {/* Why Choose Section */}
-        <div className="p-8 bg-white">
-          <h4 className="text-2xl font-bold mb-4 text-slate-900">Why Choose Our {service.title}</h4>
+                            {/* Image Banner */}
+                            {service.image ? (
+                              <div className="h-64 relative">
+                                <Image
+                                  src={service.image}
+                                  alt={service.title}
+                                  fill
+                                  className="object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
 
-          <ul className="space-y-3">
-            {service.whyChoose?.map((point, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <div className="mt-1 text-blue-600"><CheckCircle className="h-5 w-5" /></div>
-                <span className="text-slate-700">{point}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </CardContent>
-    </Card>
-  </div>
-</div>
+                                <div className="absolute left-6 bottom-6">
+                                  <h5 className="text-white text-lg font-semibold drop-shadow">
+                                    {service.title}
+                                  </h5>
+                                  <p className="text-white/90 text-sm">
+                                    {service.subtitle}
+                                  </p>
+                                </div>
+                              </div>
+                            ) : (
+                              <div className={`h-64 ${service.color} relative`}>
+                                <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-transparent" />
+                                <div className="absolute left-6 bottom-6">
+                                  <h5 className="text-white text-lg font-semibold">
+                                    {service.title}
+                                  </h5>
+                                  <p className="text-white/90 text-sm">
+                                    {service.subtitle}
+                                  </p>
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Why Choose */}
+                            <div className="p-8 bg-white">
+                              <h4 className="text-2xl font-bold mb-4 text-slate-900">
+                                Why Choose Our {service.title}
+                              </h4>
+
+                              <ul className="space-y-3">
+                                {service.whyChoose?.map((point, index) => (
+                                  <li key={index} className="flex items-start gap-3">
+                                    <div className="mt-1 text-blue-600">
+                                      <CheckCircle className="h-5 w-5" />
+                                    </div>
+                                    <span className="text-slate-700">{point}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                          </CardContent>
+                        </Card>
+
+                      </div>
+                    </div>
 
                   </div>
                 </TabsContent>
               ))}
+
             </Tabs>
           </div>
         </section>

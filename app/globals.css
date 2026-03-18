@@ -4,6 +4,15 @@
   line-height: 1.5 !important;
   word-break: break-word;
 }
+
+/* Hide scrollbar (cross-browser) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 @media (max-width: 640px) {
   .service-longdesc {
     font-size: 1rem !important;
@@ -74,7 +83,8 @@
 }
 
 .bg-grid-pattern {
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 20px 20px;
 }
@@ -159,7 +169,11 @@
   left: 0;
   width: 100%;
   height: 20%;
-  background: linear-gradient(180deg, rgba(30, 41, 59, 1) 0%, rgba(30, 41, 59, 0) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(30, 41, 59, 1) 0%,
+    rgba(30, 41, 59, 0) 100%
+  );
   z-index: -1;
 }
 
@@ -234,7 +248,7 @@
 .client-logos-scrollbar {
   /* Firefox */
   scrollbar-width: thin;
-  scrollbar-color: #94A3B8 #F1F5F9; /* thumb, track */
+  scrollbar-color: #94a3b8 #f1f5f9; /* thumb, track */
 }
 
 .client-logos-scrollbar::-webkit-scrollbar {
@@ -247,13 +261,13 @@
 }
 
 .client-logos-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #94A3B8; /* slate-400 */
+  background-color: #94a3b8; /* slate-400 */
   border-radius: 9999px;
   border: 2px solid #f1f5f9;
 }
 
 .client-logos-scrollbar:focus {
-  outline: 3px solid rgba(59,130,246,0.18); /* subtle blue focus ring */
+  outline: 3px solid rgba(59, 130, 246, 0.18); /* subtle blue focus ring */
   outline-offset: 3px;
 }
 .NavigationMenuContent {
