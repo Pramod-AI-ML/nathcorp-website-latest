@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linkedin, Mail, X } from "lucide-react"
+import { Linkedin } from "lucide-react"
 // Removed: import Link from "next/link"
 
 export default function Footer() {
@@ -56,28 +56,6 @@ export default function Footer() {
               title="Follow NathCorp on LinkedIn"
             >
               <Linkedin size={16} />
-            </a>
-
-            {/* X / Twitter */}
-            <a
-              href="https://x.com"  /* Replace with your official X profile */
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-colors"
-              aria-label="X (Twitter)"
-              title="Follow NathCorp on X (Twitter)"
-            >
-              <X size={16} />
-            </a>
-
-            {/* Email */}
-            <a
-              href="mailto:contact@nathcorp.com?subject=Inquiry%20from%20Website&body=Hello%20NathCorp%20Team,"
-              className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-colors"
-              aria-label="Email"
-              title="Email NathCorp"
-            >
-              <Mail size={16} />
             </a>
 
           </div>

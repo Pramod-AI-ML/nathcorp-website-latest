@@ -117,12 +117,7 @@ export default function PrivacyPolicyPage() {
                 </h2>
                 <p className="text-slate-700 leading-relaxed">
                   You have the right to request access to, correction of, or deletion of your personal information. 
-                  You may also withdraw consent for processing or request data portability. To exercise these rights, 
-                  please contact us at{" "}
-                  <a href="mailto:privacy@nathcorp.com" className="text-blue-600 font-semibold hover:underline">
-                    privacy@nathcorp.com
-                  </a>
-                  .
+                  You may also withdraw consent for processing or request data portability.
                 </p>
               </div>
 
@@ -135,11 +130,7 @@ export default function PrivacyPolicyPage() {
                   Privacy Contact Information
                 </h2>
                 <p className="text-slate-700 leading-relaxed">
-                  For questions regarding this Privacy Notice or to exercise your privacy rights, please contact our 
-                  Privacy Officer at:{" "}
-                  <a href="mailto:privacy@nathcorp.com" className="text-blue-600 font-semibold hover:underline">
-                    privacy@nathcorp.com
-                  </a>
+                  For questions regarding this Privacy Notice or to exercise your privacy rights, please visit our contact page.
                 </p>
               </div>
 
