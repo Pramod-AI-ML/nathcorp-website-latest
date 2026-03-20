@@ -54,8 +54,16 @@ const timeline = [
   },
 ]
 
+type Achievement = { icon: "Trophy" | "Globe" | "CheckCircle" | "Shield" | "Clock" | "Zap" | "Award" | "Handshake" | "Lightbulb"; label: string }
 
-const leadershipTeam = [
+const leadershipTeam: Array<{
+  name: string;
+  title: string;
+  bio: string;
+  image: string;
+  achievements: Achievement[];
+  roleType: string;
+}> = [
   {
     name: "Raj Nath", 
     title: "CEO",
@@ -107,7 +115,7 @@ const leadershipTeam = [
     image: "/images/Binit.png",
     achievements: [
         { icon: "CheckCircle", label: "Program Excellence" },
-        { icon: "Users", label: "Cross-Functional Leadership" },
+        { icon: "Handshake", label: "Cross-Functional Leadership" },
     ],
     roleType: "Director"
   },
@@ -117,7 +125,7 @@ const leadershipTeam = [
     bio: "Strengthening relationships with enterprise clients and opening new global markets — focused on sustainable growth and exceptional customer experience.",
     image: "/images/Shraddha.png",
     achievements: [
-        { icon: "Users", label: "Customer Success Champion" },
+        { icon: "Handshake", label: "Customer Success Champion" },
         { icon: "Award", label: "Strategic Global Expansion" },
     ],
     roleType: "Manager"
@@ -140,7 +148,7 @@ const leadershipTeam = [
     bio: "Building and nurturing our global talent pool — fostering a culture of excellence, growth, and innovation across all teams.",
     image: "/images/Nisha.jpeg",
     achievements: [
-        { icon: "Users", label: "Talent Development" },
+        { icon: "Handshake", label: "Talent Development" },
         { icon: "Award", label: "Culture Excellence" },
     ],
     roleType: "Manager"
@@ -148,7 +156,19 @@ const leadershipTeam = [
 ]
 
 // --- MAPPING DATA FOR CARD HOVER EFFECT ---
-const leadershipCards = leadershipTeam.map(member => ({
+const leadershipCards: {
+  title: string;
+  description: string;
+  link: string;
+  member: {
+    name: string;
+    title: string;
+    bio: string;
+    image: string;
+    achievements: Achievement[];
+    roleType: string;
+  };
+}[] = leadershipTeam.map(member => ({
   title: `${member.name} (${member.title?.split(" – ")[0] || member.title})`,
   description: member.bio,
   link: "#",

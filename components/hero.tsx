@@ -412,7 +412,7 @@ const Button = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButt
 );
 Button.displayName = "Button";
 
-const MotionButton = motion(Button);
+const MotionButton = motion.create(Button);
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);

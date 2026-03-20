@@ -1,5 +1,5 @@
 import type React from "react"
-import "./globals.css"
+import "@/styles/globals.css"
 import type { Metadata } from "next"
 import { Toaster } from "@/components/ui/toaster"
 
@@ -69,7 +69,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body suppressHydrationWarning>
         {children}
         <Toaster />
       </body>

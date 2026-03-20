@@ -59,9 +59,11 @@ const ContactForm = () => {
 
       if (value.length > MAX_LENGTH.name) return
 
-      if (value && !nameRegex.test(value)) {
-        setErrors((p: any) => ({ ...p, name: "Name can contain letters and spaces only" }))
-      } else {
+      // Remove special characters - only allow letters, spaces, hyphens, apostrophes
+      newValue = value.replace(/[^a-zA-Z\s'-]/g, "")
+
+      // Only clear errors if input is valid or empty
+      if (newValue === "" || nameRegex.test(newValue)) {
         setErrors((p: any) => ({ ...p, name: "" }))
       }
 
@@ -114,6 +116,10 @@ const ContactForm = () => {
     setFormData(prev => ({ ...prev, [name]: newValue }))
   }
 
+  const handleSelectChange = (fieldName: string, value: string) => {
+    setFormData(prev => ({ ...prev, [fieldName]: value }))
+  }
+
   const validateForm = () => {
 
     const newErrors: any = {}
@@ -149,12 +155,16 @@ const ContactForm = () => {
     return Object.keys(newErrors).length === 0
   }
 
-  const isFormValid =
-    formData.name.trim() !== "" &&
-    formData.email.trim() !== "" &&
-    formData.subject.trim() !== "" &&
-    formData.company.trim() !== "" &&
-    Object.keys(errors).length === 0
+  const isFormValid = () => {
+    const nameValid = formData.name.trim().length >= 2 && nameRegex.test(formData.name)
+    const emailValid = emailRegex.test(formData.email)
+    const phoneValid = !formData.phone || phoneRegex.test(formData.phone)
+    const companyValid = formData.company.trim().length > 0 && companyRegex.test(formData.company)
+    const subjectValid = formData.subject.trim().length >= 5 && subjectRegex.test(formData.subject)
+    const noErrors = Object.keys(errors).length === 0
+
+    return nameValid && emailValid && phoneValid && companyValid && subjectValid && noErrors
+  }
 
   return (
 
@@ -277,6 +287,47 @@ const ContactForm = () => {
         </div>
 
       </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <Label htmlFor="modal-interest">I'm interested in</Label>
+          <Select
+            value={formData.interest}
+            onValueChange={(v) => handleSelectChange("interest", v)}
+          >
+            <SelectTrigger className="border-slate-300 focus:border-blue-500">
+              <SelectValue placeholder="Select service area" />
+            </SelectTrigger>
+            {/* ✅ Ensure dropdown is above overlay */}
+            <SelectContent className="z-[70]">
+              <SelectItem value="cloud-migration">Cloud Migration</SelectItem>
+              <SelectItem value="digital-transformation">Digital Transformation</SelectItem>
+              <SelectItem value="it-consulting">IT Consulting</SelectItem>
+              <SelectItem value="security-services">Security Services</SelectItem>
+              <SelectItem value="ai-services">AI Services</SelectItem>
+              <SelectItem value="other">Other/Custom</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="modal-preferredLocation">Preferred Office</Label>
+          <Select
+            value={formData.preferredLocation}
+            onValueChange={(v) => handleSelectChange("preferredLocation", v)}
+          >
+            <SelectTrigger className="border-slate-300 focus:border-blue-500">
+              <SelectValue placeholder="Select preferred office" />
+            </SelectTrigger>
+            {/* ✅ Ensure dropdown is above overlay */}
+            <SelectContent className="z-[70]">
+              <SelectItem value="Ranchi, India">Ranchi, India</SelectItem>
+              <SelectItem value="Irvine, USA">Irvine, USA</SelectItem>
+              <SelectItem value="Dubai, UAE">Dubai, UAE</SelectItem>
+              <SelectItem value="Any Office">Any Office</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
 
       <div className="space-y-2">
         <Label htmlFor="subject">Subject *</Label>
@@ -313,7 +364,7 @@ const ContactForm = () => {
       <Button
         type="submit"
         className="w-full"
-        disabled={!isFormValid || isSubmitting}
+        disabled={isSubmitting}
       >
         {isSubmitting ? "Sending..." : "Send Message"}
       </Button>
