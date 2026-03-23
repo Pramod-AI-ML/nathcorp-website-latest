@@ -43,6 +43,7 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
     subject: defaultSubject,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Update the subject whenever the modal opens with a new defaultSubject
   useEffect(() => {
@@ -56,26 +57,91 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
 
   if (!open) return null;
 
+  const validateField = (name: string, value: string) => {
+    let error = "";
+    switch (name) {
+      case "name":
+        if (!value.trim()) {
+          error = "Full name is required";
+        } else if (value.trim().length < 2) {
+          error = "Full name must be at least 2 characters";
+        } else if (!/^[a-zA-Z\s]+$/.test(value.trim())) {
+          error = "Full name can only contain letters and spaces";
+        }
+        break;
+      case "email":
+        if (!value.trim()) {
+          error = "Email is required";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          error = "Please enter a valid email address";
+        }
+        break;
+      case "phone":
+        if (value && !/^[\d\s\-\+\(\)]+$/.test(value)) {
+          error = "Phone number can only contain digits, spaces, hyphens, plus signs, and parentheses";
+        }
+        break;
+      case "company":
+        // Optional, no validation
+        break;
+      case "interest":
+        if (!value) {
+          error = "Please select your area of interest";
+        }
+        break;
+      case "preferredLocation":
+        // Has default, but let's make it required
+        if (!value) {
+          error = "Please select a preferred office";
+        }
+        break;
+      case "message1":
+        if (!value.trim()) {
+          error = "Message is required";
+        } else if (value.trim().length < 10) {
+          error = "Message must be at least 10 characters";
+        }
+        break;
+      default:
+        break;
+    }
+    return error;
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     if (name === "phone") {
-      // Only allow digits
-      if (/^\d*$/.test(value)) {
+      // Allow digits, spaces, hyphens, plus, parentheses
+      if (/^[\d\s\-\+\(\)]*$/.test(value)) {
         setFormData((prev) => ({ ...prev, [name]: value }));
+        const error = validateField(name, value);
+        setErrors((prev) => ({ ...prev, [name]: error }));
       }
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
+      const error = validateField(name, value);
+      setErrors((prev) => ({ ...prev, [name]: error }));
     }
   };
 
-  // Check if all mandatory fields are filled
-  const isFormValid = formData.name.trim() !== "" && 
-                     formData.email.trim() !== "" && 
-                     formData.message1.trim() !== "";
-
   const handleSelectChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
+    const error = validateField(name, value);
+    setErrors((prev) => ({ ...prev, [name]: error }));
   };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    const error = validateField(name, value);
+    setErrors((prev) => ({ ...prev, [name]: error }));
+  };
+
+  // Check if all mandatory fields are filled and no errors
+  const isFormValid = formData.name.trim() !== "" && 
+                     formData.email.trim() !== "" && 
+                     formData.message1.trim() !== "" &&
+                     formData.interest !== "" &&
+                     Object.values(errors).every(error => error === "");
 
   // ✅ Close only when clicking directly on the dark background
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -86,15 +152,26 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Validate phone: only digits allowed (if not empty)
-    if (formData.phone && !/^\d+$/.test(formData.phone)) {
+
+    // Validate all fields
+    const newErrors: Record<string, string> = {};
+    Object.keys(formData).forEach(key => {
+      if (key !== "subject") { // Skip hidden subject
+        const error = validateField(key, formData[key as keyof typeof formData]);
+        if (error) newErrors[key] = error;
+      }
+    });
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
       toast({
-        title: "Invalid Phone Number",
-        description: "Phone number must contain digits only.",
+        title: "Validation Error",
+        description: "Please correct the errors in the form.",
         variant: "destructive",
       });
       return;
     }
+
     setIsSubmitting(true);
 
     const serviceId = "service_jvcfdxq";
@@ -119,6 +196,7 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
       });
 
       setFormData({ ...INITIAL_FORM_DATA, subject: defaultSubject });
+      setErrors({});
       onClose();
     } catch (error) {
       console.error("Email send failed:", error);
@@ -195,29 +273,33 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
               <form id="custom-service-form" onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="modal-name">Full Name</Label>
+                    <Label htmlFor="modal-name">Full Name <span className="text-red-500">*</span></Label>
                     <Input
                       id="modal-name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="John Doe"
                       required
-                      className="border-slate-300 focus:border-blue-500"
+                      className={`border-slate-300 focus:border-blue-500 ${errors.name ? 'border-red-500' : ''}`}
                     />
+                    {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="modal-email">Email</Label>
+                    <Label htmlFor="modal-email">Email <span className="text-red-500">*</span></Label>
                     <Input
                       id="modal-email"
                       name="email"
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="john@example.com"
                       required
-                      className="border-slate-300 focus:border-blue-500"
+                      className={`border-slate-300 focus:border-blue-500 ${errors.email ? 'border-red-500' : ''}`}
                     />
+                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                   </div>
                 </div>
 
@@ -229,9 +311,11 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="+1 555 123 4567"
-                      className="border-slate-300 focus:border-blue-500"
+                      className={`border-slate-300 focus:border-blue-500 ${errors.phone ? 'border-red-500' : ''}`}
                     />
+                    {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="modal-company">Company (Optional)</Label>
@@ -240,6 +324,7 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="Acme Inc."
                       className="border-slate-300 focus:border-blue-500"
                     />
@@ -248,12 +333,12 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="modal-interest">I'm interested in</Label>
+                    <Label htmlFor="modal-interest">I'm interested in <span className="text-red-500">*</span></Label>
                     <Select
                       value={formData.interest}
                       onValueChange={(v) => handleSelectChange("interest", v)}
                     >
-                      <SelectTrigger className="border-slate-300 focus:border-blue-500">
+                      <SelectTrigger className={`border-slate-300 focus:border-blue-500 ${errors.interest ? 'border-red-500' : ''}`}>
                         <SelectValue placeholder="Select service area" />
                       </SelectTrigger>
                       {/* ✅ Ensure dropdown is above overlay */}
@@ -266,15 +351,16 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
                         <SelectItem value="other">Other/Custom</SelectItem>
                       </SelectContent>
                     </Select>
+                    {errors.interest && <p className="text-red-500 text-sm">{errors.interest}</p>}
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="modal-preferredLocation">Preferred Office</Label>
+                    <Label htmlFor="modal-preferredLocation">Preferred Office <span className="text-red-500">*</span></Label>
                     <Select
                       value={formData.preferredLocation}
                       onValueChange={(v) => handleSelectChange("preferredLocation", v)}
                     >
-                      <SelectTrigger className="border-slate-300 focus:border-blue-500">
+                      <SelectTrigger className={`border-slate-300 focus:border-blue-500 ${errors.preferredLocation ? 'border-red-500' : ''}`}>
                         <SelectValue placeholder="Select preferred office" />
                       </SelectTrigger>
                       {/* ✅ Ensure dropdown is above overlay */}
@@ -285,6 +371,7 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
                         <SelectItem value="Any Office">Any Office</SelectItem>
                       </SelectContent>
                     </Select>
+                    {errors.preferredLocation && <p className="text-red-500 text-sm">{errors.preferredLocation}</p>}
                   </div>
                 </div>
 
@@ -292,22 +379,25 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
                 <Input type="hidden" name="subject" value={formData.subject} />
 
                 <div className="space-y-2">
-                  <Label htmlFor="modal-message">Message/Details</Label>
+                  <Label htmlFor="modal-message">Message/Details <span className="text-red-500">*</span></Label>
                   <Textarea
                     id="modal-message"
                     name="message1"
                     value={formData.message1}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     placeholder={`Details about your inquiry (Subject: ${formData.subject})`}
                     rows={5}
                     required
-                    className="border-slate-300 focus:border-blue-500"
+                    className={`border-slate-300 focus:border-blue-500 ${errors.message1 ? 'border-red-500' : ''}`}
                   />
+                  {errors.message1 && <p className="text-red-500 text-sm">{errors.message1}</p>}
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white disabled:opacity-50 disabled:cursor-not-allowed"
                   
                 >
                   {isSubmitting ? "Sending Inquiry..." : "Send Message"}
