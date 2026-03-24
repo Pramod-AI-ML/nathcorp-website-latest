@@ -465,12 +465,12 @@ export default function AboutPage() {
           </motion.div>
 
           <div className="relative max-w-4xl mx-auto">
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-slate-200">
+            <div className="absolute left-4 sm:left-1/2 transform sm:-translate-x-1/2 h-full w-1 bg-slate-200">
               <motion.div style={{ scaleY }} className="h-full w-full bg-gradient-to-b from-blue-600 via-purple-600 to-pink-600 origin-top" />
             </div>
             {timeline.map((item, idx) => (
-              <motion.div key={item.year} initial={{opacity:0,y:30}} animate={historyInView?{opacity:1,y:0}:{opacity:0,y:30}} transition={{duration:0.5, delay: idx*0.2}} className={`relative mb-12 flex ${idx%2===0?"justify-start":"justify-end"}`}>
-                <div className={`${idx%2===0?"pr-8":"pl-8"} w-5/12`}>
+              <motion.div key={item.year} initial={{opacity:0,y:30}} animate={historyInView?{opacity:1,y:0}:{opacity:0,y:30}} transition={{duration:0.5, delay: idx*0.2}} className={`relative mb-12 flex ${idx%2===0?"sm:justify-start justify-start":"sm:justify-end justify-start"}`}>
+                <div className={`${idx%2===0?"sm:pr-8 pr-0":"sm:pl-8 pl-0"} w-full sm:w-5/12 pl-8 sm:pl-0`}>
                   <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-lg shadow-xl hover:shadow-2xl transition duration-300">
                     <div className="absolute -inset-1 bg-gradient-to-br from-blue-600/40 to-purple-600/40 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div className="relative p-6">
@@ -480,7 +480,7 @@ export default function AboutPage() {
                     </div>
                   </div>
                 </div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-gradient-to-r from-blue-600 to-pink-500 border-4 border-white shadow-lg"></div>
+                <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-gradient-to-r from-blue-600 to-pink-500 border-4 border-white shadow-lg"></div>
               </motion.div>
             ))}
           </div>
