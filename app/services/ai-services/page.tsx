@@ -184,8 +184,8 @@ export default function AppDevelopmentPage() {
                                     </div>
                                     <h3 className="text-2xl font-bold mb-4 text-slate-800 tracking-tight">{service.title}</h3>
                                     <p className="text-slate-500 text-sm leading-relaxed mb-8">{service.description}</p>
-                                    <div className="relative h-44 rounded-2xl overflow-hidden transition-all duration-700">
-                                        <Image src={service.image} alt={service.title} fill className="object-cover" />
+                                    <div className="relative h-32 sm:h-40 md:h-44 rounded-2xl overflow-hidden transition-all duration-700 bg-slate-50">
+                                        <Image src={service.image} alt={service.title} fill className="object-contain" />
                                     </div>
                                 </div>
                             </motion.div>
@@ -261,7 +261,7 @@ export default function AppDevelopmentPage() {
                         <div className="text-center mt-16 relative z-10">
                             <ContactFormModal
                                 triggerText="Consult an AI Specialist"
-                                triggerClassName="bg-blue-600 hover:bg-blue-700 rounded-full px-12 py-8 text-white text-xl font-bold shadow-2xl transition-all hover:scale-105"
+                                triggerClassName="bg-blue-600 hover:bg-blue-700 rounded-full px-4 sm:px-8 md:px-12 py-3 sm:py-6 md:py-8 text-white text-sm sm:text-base md:text-xl font-bold shadow-2xl transition-all hover:scale-105 whitespace-nowrap"
                                 serviceName="AI & Automation Services"
                                 showIcon={true}
                             />
