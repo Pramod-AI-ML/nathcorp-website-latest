@@ -37,7 +37,7 @@ export const metadata: Metadata = {
       "NathCorp provides modern deployment solutions, cloud migration services, and IT consulting. Cost effective, safe & personalized.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/images/Nathcorp.png",
         width: 1200,
         height: 630,
         alt: "NathCorp - Modern Deployment & Cloud Migration Solutions",
