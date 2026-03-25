@@ -3,15 +3,15 @@
 import { useRef } from "react"
 import Image from "next/image"
 import { motion, useScroll, useSpring } from "framer-motion"
-import { 
-  Zap, 
-  ShieldCheck, 
-  Users, 
-  BarChart3, 
-  MessageSquare, 
-  FileText, 
-  ArrowRight, 
-  CheckCircle2, 
+import {
+  Zap,
+  ShieldCheck,
+  Users,
+  BarChart3,
+  MessageSquare,
+  FileText,
+  ArrowRight,
+  CheckCircle2,
   Cpu,
   Mail,
   TrendingUp,
@@ -54,16 +54,16 @@ export default function CopilotServicesPage() {
         <section className="relative min-h-[75vh] flex items-center pt-20 pb-16 overflow-hidden bg-[#05070a]">
           {/* Background Neural Network Effect */}
           <div className="absolute inset-0 z-0">
-             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#1e3a8a_0%,transparent_50%)] opacity-30" />
-             <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] animate-pulse" />
-             <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px]" />
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#1e3a8a_0%,transparent_50%)] opacity-30" />
+            <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] animate-pulse" />
+            <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px]" />
           </div>
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <motion.div 
-                initial={{ opacity: 0, x: -30 }} 
-                animate={{ opacity: 1, x: 0 }} 
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
               >
 
@@ -76,28 +76,28 @@ export default function CopilotServicesPage() {
               </motion.div>
 
               {/* Right Side: Abstract Copilot UI Illustration */}
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.8 }} 
-                animate={{ opacity: 1, scale: 1 }} 
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1 }}
                 className="hidden lg:block relative"
               >
                 <div className="relative z-10 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-4 shadow-2xl">
-                   <Image 
+                  <Image
                     src="/images/Copilot-ui.png" // Use a high-quality Copilot UI screenshot or abstract AI image
-                    alt="Microsoft Copilot AI Interface" 
-                    width={600} 
-                    height={400} 
+                    alt="Microsoft Copilot AI Interface"
+                    width={600}
+                    height={400}
                     className="rounded-2xl"
-                   />
-                   
+                  />
+
                 </div>
               </motion.div>
             </div>
           </div>
-          
+
           {/* Bottom curve fade to white */}
-          
+
         </section>
 
         {/* --- TRANSFORM SECTION --- */}
@@ -114,42 +114,42 @@ export default function CopilotServicesPage() {
                   Transform Productivity Across Every Team
                 </h2>
                 <p className="text-lg text-slate-600 leading-relaxed text-justify mb-8">
-                  We help organizations activate Copilot as a real productivity engine — not just a new feature. Our approach focuses on role-based use cases that save time, reduce effort, and improve decision-making across the business. 
+                  We help organizations activate Copilot as a real productivity engine — not just a new feature. Our approach focuses on role-based use cases that save time, reduce effort, and improve decision-making across the business.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                   {["Productivity Acceleration", "AI-Assisted Content", "Real-time Insights", "Governance & Safety"].map((item, i) => (
-                     <div key={i} className="flex items-center gap-2 text-slate-700 font-medium">
-                       <CheckCircle2 className="text-blue-600" size={20} /> {item}
-                     </div>
-                   ))}
+                  {["Productivity Acceleration", "AI-Assisted Content", "Real-time Insights", "Governance & Safety"].map((item, i) => (
+                    <div key={i} className="flex items-center gap-2 text-slate-700 font-medium">
+                      <CheckCircle2 className="text-blue-600" size={20} /> {item}
+                    </div>
+                  ))}
                 </div>
               </motion.div>
 
               <div className="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100 shadow-xl relative overflow-hidden group">
-                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700" />
-                 <h4 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                   <ShieldCheck className="text-blue-600" /> Why Choose NathCorp
-                 </h4>
-                 <ul className="space-y-4">
-                    {[
-                      "Global Microsoft Partner expertise",
-                      "Proven enterprise-scale M365 success",
-                      "Real adoption strategy — not just setup",
-                      "ROI-focused deployment and enablement"
-                    ].map((li, idx) => (
-                      <li key={idx} className={`pb-4 ${idx !== 3 ? 'border-b border-slate-200' : ''} text-slate-600 flex items-start gap-3`}>
-                        <CheckCircle2 className="text-blue-500 mt-1 flex-shrink-0" size={16} />
-                        {li}
-                      </li>
-                    ))}
-                 </ul>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700" />
+                <h4 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                  <ShieldCheck className="text-blue-600" /> Why Choose NathCorp
+                </h4>
+                <ul className="space-y-4">
+                  {[
+                    "Global Microsoft Partner expertise",
+                    "Proven enterprise-scale M365 success",
+                    "Real adoption strategy — not just setup",
+                    "ROI-focused deployment and enablement"
+                  ].map((li, idx) => (
+                    <li key={idx} className={`pb-4 ${idx !== 3 ? 'border-b border-slate-200' : ''} text-slate-600 flex items-start gap-3`}>
+                      <CheckCircle2 className="text-blue-500 mt-1 flex-shrink-0" size={16} />
+                      {li}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
             {/* Feature Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {features.map((feature, idx) => (
-                <motion.div 
+                <motion.div
                   key={idx}
                   whileHover={{ y: -10, borderColor: '#3b82f6' }}
                   className="p-8 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300"
@@ -180,11 +180,11 @@ export default function CopilotServicesPage() {
 
               {packages.map((pkg, idx) => (
                 <div key={idx} className={`relative mb-20 flex flex-col md:flex-row items-center ${idx % 2 === 0 ? "md:flex-row-reverse" : ""}`}>
-                  <motion.div 
-                    initial={{ opacity: 0, x: idx % 2 === 0 ? 30 : -30 }} 
+                  <motion.div
+                    initial={{ opacity: 0, x: idx % 2 === 0 ? 30 : -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    className="w-full md:w-[45%] ml-16 md:ml-0"
+                    className="w-full md:w-[45%] px-4 md:px-0 pl-20 md:pl-0"
                   >
                     <div className="p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:border-blue-600 transition-colors duration-500">
                       <h4 className="text-blue-600 font-bold uppercase tracking-widest text-xs mb-2">Phase {idx + 1}</h4>
@@ -192,7 +192,7 @@ export default function CopilotServicesPage() {
                       <p className="text-slate-600 text-sm">{pkg.val}</p>
                     </div>
                   </motion.div>
-                  <div className="absolute left-8 md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-blue-600 border-4 border-white z-10 shadow-lg" />
+                  <div className="absolute left-8 md:left-1/2 top-12 w-4 h-4 rounded-full bg-blue-600 border-4 border-white z-10 shadow-lg -translate-x-1/2" />
                 </div>
               ))}
             </div>
@@ -205,7 +205,7 @@ export default function CopilotServicesPage() {
             <Cpu className="mx-auto mb-6 text-blue-600" size={48} />
             <h2 className="text-3xl font-bold text-slate-900 mb-6">Built on Microsoft 365 — Powered by Azure AI</h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-12">
-              We secure and optimize Copilot using Microsoft’s trusted cloud, identity, and security ecosystem. 
+              We secure and optimize Copilot using Microsoft’s trusted cloud, identity, and security ecosystem.
             </p>
             <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
               {["M365", "Entra ID", "Microsoft Graph", "SharePoint", "Teams", "Copilot Studio"].map((tech, i) => (
@@ -214,19 +214,19 @@ export default function CopilotServicesPage() {
                 </div>
               ))}
             </div>
-            
-            <div className="mt-24 bg-gradient-to-br from-[#05070a] to-[#1e3a8a] rounded-[3rem] p-12 text-white relative overflow-hidden group">
-               <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]" />
-               <div className="relative z-10">
-                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to see what Copilot can do?</h2>
-                 <p className="text-blue-100 mb-10 max-w-xl mx-auto text-lg">Book your Copilot Readiness Call today and get a custom strategy for your organization.</p>
-                 <ContactFormModal
-                   triggerText="Book Your Readiness Call Now"
-                   triggerClassName="bg-white text-blue-900 hover:bg-slate-100 rounded-full px-12 h-16 text-xl font-black shadow-2xl transition-all hover:scale-105"
-                   serviceName="Microsoft Copilot Services"
-                   showIcon={false}
-                 />
-               </div>
+
+            <div className="mt-24 bg-gradient-to-br from-[#05070a] to-[#1e3a8a] rounded-[3rem] p-6 md:p-12 text-white relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]" />
+              <div className="relative z-10 flex flex-col items-center justify-center text-center">
+                <h2 className="text-2xl md:text-4xl font-bold mb-6">Ready to see what Copilot can do?</h2>
+                <p className="text-blue-100 mb-10 max-w-xl text-sm md:text-lg">Book your Copilot Readiness Call today and get a custom strategy for your organization.</p>
+                <ContactFormModal
+                  triggerText="Book Your Readiness Call Now"
+                  triggerClassName="bg-white text-blue-900 hover:bg-slate-100 rounded-full px-6 md:px-12 h-12 md:h-16 text-sm md:text-xl font-black shadow-2xl transition-all hover:scale-105"
+                  serviceName="Microsoft Copilot Services"
+                  showIcon={false}
+                />
+              </div>
             </div>
           </div>
         </section>
