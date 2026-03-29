@@ -9,6 +9,10 @@ import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import emailjs from "@emailjs/browser"
 
+
+const API_ENDPOINT = "/api/handleEmail";
+// const API_ENDPOINT= "http://localhost:7071/api/handleEmail";
+
 const ContactForm = () => {
 
   const { toast } = useToast()
@@ -168,6 +172,211 @@ const ContactForm = () => {
 
   return (
 
+    // <form
+    //   onSubmit={async (e) => {
+
+    //     e.preventDefault()
+
+    //     if (!validateForm()) {
+    //       toast({
+    //         title: "Please fix validation errors",
+    //         variant: "destructive"
+    //       })
+    //       return
+    //     }
+
+    //     setIsSubmitting(true)
+
+    //     const serviceId = 'service_jvcfdxq'
+    //     const templateId = 'template_03nshuf'
+    //     const publicKey = 'uf1J58re3AQuJkwKz'
+
+    //     try {
+
+    //       await emailjs.send(
+    //         serviceId,
+    //         templateId,
+    //         { ...formData, to_name: 'NathCorp Team' },
+    //         publicKey
+    //       )
+
+    //       toast({ title: "Message sent successfully! 🎉" })
+
+    //       setFormData({
+    //         name: "",
+    //         email: "",
+    //         phone: "",
+    //         company: "",
+    //         subject: "",
+    //         message1: "",
+    //         interest: "",
+    //         preferredLocation: "",
+    //       })
+
+    //       setErrors({})
+
+    //     } catch (error) {
+
+    //       toast({
+    //         title: "Failed to send",
+    //         variant: "destructive"
+    //       })
+
+    //     } finally {
+
+    //       setIsSubmitting(false)
+
+    //     }
+
+    //   }}
+    //   className="space-y-6"
+    // >
+
+    //   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    //     <div className="space-y-2">
+    //       <Label htmlFor="name">Full Name *</Label>
+    //       <Input
+    //         id="name"
+    //         name="name"
+    //         value={formData.name}
+    //         onChange={handleChange}
+    //         required
+    //         maxLength={50}
+    //         placeholder="John Doe"
+    //       />
+    //       {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+    //     </div>
+
+    //     <div className="space-y-2">
+    //       <Label htmlFor="email">Email *</Label>
+    //       <Input
+    //         id="email"
+    //         name="email"
+    //         type="email"
+    //         value={formData.email}
+    //         onChange={handleChange}
+    //         required
+    //         maxLength={100}
+    //         placeholder="john@example.com"
+    //       />
+    //       {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+    //     </div>
+
+    //     <div className="space-y-2">
+    //       <Label htmlFor="phone">Phone</Label>
+    //       <Input
+    //         id="phone"
+    //         name="phone"
+    //         value={formData.phone}
+    //         onChange={handleChange}
+    //         maxLength={15}
+    //         placeholder="+1 555 123 4567"
+    //       />
+    //       {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+    //     </div>
+
+    //     <div className="space-y-2">
+    //       <Label htmlFor="company">Company *</Label>
+    //       <Input
+    //         id="company"
+    //         name="company"
+    //         value={formData.company}
+    //         onChange={handleChange}
+    //         required
+    //         maxLength={100}
+    //         placeholder="Acme Inc."
+    //       />
+    //       {errors.company && <p className="text-red-500 text-sm">{errors.company}</p>}
+    //     </div>
+
+    //   </div>
+    //   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    //     <div className="space-y-2">
+    //       <Label htmlFor="modal-interest">I'm interested in</Label>
+    //       <Select
+    //         value={formData.interest}
+    //         onValueChange={(v) => handleSelectChange("interest", v)}
+    //       >
+    //         <SelectTrigger className="border-slate-300 focus:border-blue-500">
+    //           <SelectValue placeholder="Select service area" />
+    //         </SelectTrigger>
+    //         {/* ✅ Ensure dropdown is above overlay */}
+    //         <SelectContent className="z-[70]">
+    //           <SelectItem value="cloud-migration">Cloud Migration</SelectItem>
+    //           <SelectItem value="digital-transformation">Digital Transformation</SelectItem>
+    //           <SelectItem value="it-consulting">IT Consulting</SelectItem>
+    //           <SelectItem value="security-services">Security Services</SelectItem>
+    //           <SelectItem value="ai-services">AI Services</SelectItem>
+    //           <SelectItem value="other">Other/Custom</SelectItem>
+    //         </SelectContent>
+    //       </Select>
+    //     </div>
+
+    //     <div className="space-y-2">
+    //       <Label htmlFor="modal-preferredLocation">Preferred Office</Label>
+    //       <Select
+    //         value={formData.preferredLocation}
+    //         onValueChange={(v) => handleSelectChange("preferredLocation", v)}
+    //       >
+    //         <SelectTrigger className="border-slate-300 focus:border-blue-500">
+    //           <SelectValue placeholder="Select preferred office" />
+    //         </SelectTrigger>
+    //         {/* ✅ Ensure dropdown is above overlay */}
+    //         <SelectContent className="z-[70]">
+    //           <SelectItem value="Ranchi, India">Ranchi, India</SelectItem>
+    //           <SelectItem value="Irvine, USA">Irvine, USA</SelectItem>
+    //           <SelectItem value="Dubai, UAE">Dubai, UAE</SelectItem>
+    //           <SelectItem value="Any Office">Any Office</SelectItem>
+    //         </SelectContent>
+    //       </Select>
+    //     </div>
+    //   </div>
+
+    //   <div className="space-y-2">
+    //     <Label htmlFor="subject">Subject *</Label>
+    //     <Input
+    //       id="subject"
+    //       name="subject"
+    //       value={formData.subject}
+    //       onChange={handleChange}
+    //       required
+    //       maxLength={150}
+    //       placeholder="How can we help you?"
+    //     />
+    //     {errors.subject && (
+    //       <p className="text-red-500 text-sm">{errors.subject}</p>
+    //     )}
+    //   </div>
+
+    //   <div className="space-y-2">
+    //     <Label htmlFor="message1">Message</Label>
+    //     <Textarea
+    //       id="message1"
+    //       name="message1"
+    //       value={formData.message1}
+    //       onChange={handleChange}
+    //       rows={5}
+    //       maxLength={1000}
+    //       placeholder="Please provide details about your inquiry..."
+    //     />
+    //     <p className="text-xs text-gray-500">
+    //       {formData.message1.length}/1000 characters
+    //     </p>
+    //   </div>
+
+    //   <Button
+    //     type="submit"
+    //     className="w-full"
+    //     disabled={isSubmitting}
+    //   >
+    //     {isSubmitting ? "Sending..." : "Send Message"}
+    //   </Button>
+
+    // </form>
+
+    // using DL to send contact us form
+
     <form
       onSubmit={async (e) => {
 
@@ -183,18 +392,28 @@ const ContactForm = () => {
 
         setIsSubmitting(true)
 
-        const serviceId = 'service_jvcfdxq'
-        const templateId = 'template_03nshuf'
-        const publicKey = 'uf1J58re3AQuJkwKz'
-
         try {
 
-          await emailjs.send(
-            serviceId,
-            templateId,
-            { ...formData, to_name: 'NathCorp Team' },
-            publicKey
-          )
+          const res = await fetch(API_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone,
+              company: formData.company,
+              service: formData.interest,
+              office: formData.preferredLocation,
+              subject: formData.subject,
+              message: formData.message1,
+            }),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw new Error(data.error ?? "Something went wrong.");
+          }
 
           toast({ title: "Message sent successfully! 🎉" })
 
@@ -370,6 +589,8 @@ const ContactForm = () => {
       </Button>
 
     </form>
+
+
   )
 }
 

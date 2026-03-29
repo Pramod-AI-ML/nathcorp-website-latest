@@ -1,0 +1,15 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AZURE_CLIENT_ID": "14249986-fc72-47d1-a6eb-94b261cdcd24",
+    "AZURE_TENANT_ID" :"def59c70-cfce-4968-b5e8-3eb1c1b18a18",
+    "AZURE_CLIENT_SECRET" : "kYQ8Q~KvPihGkepO40j7CP04O-a8n3e-gqc21aRh",
+    "EMAIL_ENDPOINT" : "https://e404.india.communication.azure.com",
+    "EMAIL_SENDER_ADDRESS" : "DoNotReply@meindev.com",
+    "EMAIL_SALES_ADDRESS" : "sales@meindev.com",
+    "TEAM_INBOX_ADDRESS":"pramod.lohra@nathcorp.com",
+     "HR_INBOX_ADDRESS":     "AMT_Support@meindev.com"
+  }
+}

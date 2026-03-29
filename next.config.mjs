@@ -14,6 +14,7 @@ const ContentSecurityPolicy = `
 `;
 
 const nextConfig = {
+  output: 'export',
   poweredByHeader: false,
 
   eslint: {

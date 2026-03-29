@@ -10,6 +10,9 @@ import { useToast } from "@/hooks/use-toast";
 import { ArrowRight } from "lucide-react";
 import emailjs from "@emailjs/browser";
 
+
+const API_ENDPOINT = "/api/handleEmail";
+// const API_ENDPOINT= "http://localhost:7071/api/handleEmail";
 interface ContactFormModalProps {
   triggerText?: string;
   triggerClassName?: string;
@@ -189,14 +192,28 @@ export default function ContactFormModal({
 
     try {
 
-      const response = await emailjs.send(
-        serviceId,
-        templateId,
-        templateParams,
-        publicKey
-      );
+      const res = await fetch(API_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: templateParams.name,
+          email: templateParams.email,
+          phone: templateParams.phone,
+          company: templateParams.company,
+          service: templateParams.interest,
+          office: templateParams.preferredLocation,
+          subject: templateParams.subject,
+          message: templateParams.message1,
+        }),
+      });
 
-      console.log("Email sent successfully!", response);
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error ?? "Something went wrong.");
+      }
+
+      // console.log("Email sent successfully!", res);
 
       toast({
         title: "Message sent successfully! 🎉",

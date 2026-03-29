@@ -1,0 +1,17 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "nathcorp-website-main": {
+      "appLocation": ".",
+      "outputLocation": "./out",
+      "apiLocation": "./api",
+      "appBuildCommand": "next build && next export",
+      "run": "npx serve ./out",
+      "appDevserverUrl": "http://localhost:3000",
+      "apiLanguage": "node",
+      "apiVersion": "20",
+      "appName": "nc-web-demo",
+      "resourceGroup": "just4-fun-rg1"
+    }
+  }
+}

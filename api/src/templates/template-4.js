@@ -1,0 +1,224 @@
+/**
+ * templates/template-4.js
+ *
+ * Template 4 — HR internal notification
+ * Triggered by: Submit Your Resume form (career page)
+ * Recipient:    HR team inbox
+ *
+ * Contains all applicant details. The resume itself is sent as an
+ * attachment by the caller — this template covers the email body only.
+ *
+ * @param {object} data
+ * @param {string} data.firstName
+ * @param {string} data.lastName
+ * @param {string} data.email
+ * @param {string} [data.phone]
+ * @param {string} [data.linkedIn]
+ * @param {string} [data.portfolio]
+ * @param {string} [data.coverLetter]
+ * @param {string} [data.resumeFileName]
+ * @returns {{ subject: string, html: string, plainText: string }}
+ */
+
+const { esc, detailRow } = require("../util/email-helpers");
+
+function templateHRNotification({ firstName, lastName, email, phone = "", linkedIn = "", portfolio = "", coverLetter = "", resumeFileName = "" }) {
+  const safeFirst     = esc(firstName);
+  const safeLast      = esc(lastName);
+  const safeEmail     = esc(email);
+  const safePhone     = esc(phone);
+  const safeLinkedIn  = esc(linkedIn);
+  const safePortfolio = esc(portfolio);
+  const safeCover     = esc(coverLetter);
+  const safeResume    = esc(resumeFileName);
+  const safeCoverHtml = safeCover.replace(/\n/g, "<br />");
+  const fullName      = `${safeFirst} ${safeLast}`.trim();
+  const year          = new Date().getFullYear();
+
+  const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:v="urn:schemas-microsoft-com:vml"
+      xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--[if !mso]><!-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!--<![endif]-->
+  <title>New Resume Submission</title>
+  <!--[if mso]>
+  <xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
+  <![endif]-->
+  <style type="text/css">
+    body, table, td, p, a { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+    table, td { mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse; }
+    img { border:0; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic; }
+  </style>
+</head>
+<!--[if mso]><body style="margin:0;padding:0;background-color:#f5f6fa;"><![endif]-->
+<!--[if !mso]><!-->
+<body style="margin:0;padding:0;background-color:#f5f6fa;font-family:Arial,sans-serif;">
+<!--<![endif]-->
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+       style="background-color:#f5f6fa;margin:0;padding:0;">
+  <tr>
+    <td align="center"
+        style="padding-top:40px;padding-bottom:40px;padding-left:16px;padding-right:16px;">
+
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"
+             style="max-width:600px;width:100%;background-color:#ffffff;">
+
+        <!-- HEADER -->
+        <tr>
+          <td bgcolor="#1e40af"
+              style="background-color:#1e40af;padding-top:28px;padding-bottom:28px;
+                     padding-left:40px;padding-right:40px;">
+            <!--[if mso]>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td>
+            <![endif]-->
+            <p style="margin:0;font-family:Arial,sans-serif;font-size:11px;font-weight:bold;
+                      color:#93c5fd;text-transform:uppercase;letter-spacing:0.08em;">
+              HR &mdash; Internal Notification
+            </p>
+            <h1 style="margin-top:6px;margin-bottom:0;font-family:Arial,sans-serif;font-size:20px;
+                        font-weight:bold;color:#ffffff;line-height:1.3;">
+              New Resume Submission
+            </h1>
+            <p style="margin-top:6px;margin-bottom:0;font-family:Arial,sans-serif;
+                      font-size:14px;color:#bfdbfe;line-height:1.5;">
+              ${safeFirst} ${safeLast} has submitted their resume via the careers page.
+            </p>
+            <!--[if mso]></td></tr></table><![endif]-->
+          </td>
+        </tr>
+
+        <!-- BODY -->
+        <tr>
+          <td style="padding-top:32px;padding-bottom:32px;
+                     padding-left:40px;padding-right:40px;">
+
+            <p style="margin-top:0;margin-bottom:24px;font-family:Arial,sans-serif;
+                      font-size:14px;color:#4b5563;line-height:1.6;">
+              A new application has been received. Full details are below.
+              The candidate&#8217;s resume is attached to this email.
+            </p>
+
+            <!-- Applicant details -->
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                   style="background-color:#f9fafb;border:1px solid #e5e7eb;margin-bottom:28px;">
+              <tr>
+                <td style="padding-top:16px;padding-bottom:4px;
+                           padding-left:24px;padding-right:24px;">
+                  <p style="margin:0;font-family:Arial,sans-serif;font-size:11px;font-weight:bold;
+                             color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">
+                    Applicant Details
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-top:8px;padding-bottom:16px;
+                           padding-left:24px;padding-right:24px;">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    ${detailRow("Full Name",  fullName)}
+                    ${detailRow("Email",      safeEmail)}
+                    ${detailRow("Phone",      safePhone)}
+                    ${detailRow("LinkedIn",   safeLinkedIn)}
+                    ${detailRow("Portfolio",  safePortfolio)}
+                    ${detailRow("Resume",     safeResume ? `${safeResume} (attached)` : "")}
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Cover letter -->
+            ${safeCover ? `
+            <p style="margin-top:0;margin-bottom:8px;font-family:Arial,sans-serif;
+                      font-size:13px;font-weight:bold;color:#374151;">
+              Cover Letter / Message
+            </p>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                   style="margin-bottom:28px;">
+              <tr>
+                <td width="3" bgcolor="#1e40af"
+                    style="background-color:#1e40af;width:3px;">&nbsp;</td>
+                <td style="background-color:#f9fafb;padding-top:14px;padding-bottom:14px;
+                           padding-left:18px;padding-right:18px;">
+                  <p style="margin:0;font-family:Arial,sans-serif;font-size:14px;
+                            color:#374151;line-height:1.6;">
+                    ${safeCoverHtml}
+                  </p>
+                </td>
+              </tr>
+            </table>
+            ` : ""}
+
+            <!-- Action prompt -->
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                   style="background-color:#eff6ff;border:1px solid #bfdbfe;">
+              <tr>
+                <td style="padding-top:14px;padding-bottom:14px;
+                           padding-left:20px;padding-right:20px;">
+                  <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;
+                             color:#1e40af;line-height:1.6;">
+                    <strong>Next step:</strong> Review the attached resume and respond to the
+                    candidate at
+                    <a href="mailto:${safeEmail}" style="color:#1e40af;">${safeEmail}</a>
+                    within 5&#8211;7 business days.
+                  </p>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+          <td bgcolor="#f9fafb"
+              style="background-color:#f9fafb;border-top:1px solid #e5e7eb;
+                     padding-top:20px;padding-bottom:20px;
+                     padding-left:40px;padding-right:40px;
+                     text-align:center;font-family:Arial,sans-serif;
+                     font-size:12px;color:#9ca3af;line-height:1.5;">
+            &copy; ${year} Your Company Name &mdash; HR Internal Use Only
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>`;
+
+  const plainText = [
+    `[HR INTERNAL] New Resume Submission`,
+    ``,
+    `── Applicant Details ───────────────────`,
+    `Full Name:  ${firstName} ${lastName}`,
+    `Email:      ${email}`,
+    phone         ? `Phone:      ${phone}`                         : null,
+    linkedIn      ? `LinkedIn:   ${linkedIn}`                      : null,
+    portfolio     ? `Portfolio:  ${portfolio}`                     : null,
+    resumeFileName? `Resume:     ${resumeFileName} (attached)`     : null,
+    `────────────────────────────────────────`,
+    coverLetter   ? `\nCover Letter:\n${coverLetter}\n`            : null,
+    `Next step: Review the attached resume and respond to the candidate`,
+    `at ${email} within 5-7 business days.`,
+    ``,
+    `© ${year} Your Company Name — HR Internal Use Only`,
+  ]
+    .filter((l) => l !== null)
+    .join("\n");
+
+  return {
+    subject: `[New Application] ${firstName} ${lastName}`,
+    html,
+    plainText,
+  };
+}
+
+module.exports = { templateHRNotification };

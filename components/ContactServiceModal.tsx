@@ -13,7 +13,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 
-import emailjs from "@emailjs/browser"; 
+import emailjs from "@emailjs/browser";
+
+
+const API_ENDPOINT = "/api/handleEmail";
+// const API_ENDPOINT= "http://localhost:7071/api/handleEmail";
 
 const INITIAL_FORM_DATA = {
   name: "",
@@ -137,11 +141,11 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
   };
 
   // Check if all mandatory fields are filled and no errors
-  const isFormValid = formData.name.trim() !== "" && 
-                     formData.email.trim() !== "" && 
-                     formData.message1.trim() !== "" &&
-                     formData.interest !== "" &&
-                     Object.values(errors).every(error => error === "");
+  const isFormValid = formData.name.trim() !== "" &&
+    formData.email.trim() !== "" &&
+    formData.message1.trim() !== "" &&
+    formData.interest !== "" &&
+    Object.values(errors).every(error => error === "");
 
   // ✅ Close only when clicking directly on the dark background
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -174,9 +178,9 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
 
     setIsSubmitting(true);
 
-    const serviceId = "service_jvcfdxq";
-    const templateId = "template_03nshuf";
-    const publicKey = "uf1J58re3AQuJkwKz";
+    // const serviceId = "service_jvcfdxq";
+    // const templateId = "template_03nshuf";
+    // const publicKey = "uf1J58re3AQuJkwKz";
 
     const templateParams = {
       ...formData,
@@ -188,7 +192,28 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
     };
 
     try {
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+
+      const res = await fetch(API_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: templateParams.name,
+          email: templateParams.email,
+          phone: templateParams.phone,
+          company: templateParams.company,
+          service: templateParams.interest,
+          office: templateParams.preferredLocation,
+          subject: templateParams.subject,
+          message: templateParams.message1,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error ?? "Something went wrong.");
+      }
+
 
       toast({
         title: "Inquiry Sent Successfully! 🎉",
@@ -196,7 +221,6 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
       });
 
       setFormData({ ...INITIAL_FORM_DATA, subject: defaultSubject });
-      setErrors({});
       onClose();
     } catch (error) {
       console.error("Email send failed:", error);
@@ -398,7 +422,7 @@ export const ContactServiceModal: React.FC<ContactServiceModalProps> = ({
                   type="submit"
                   disabled={isSubmitting}
                   className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                  
+
                 >
                   {isSubmitting ? "Sending Inquiry..." : "Send Message"}
                 </Button>
