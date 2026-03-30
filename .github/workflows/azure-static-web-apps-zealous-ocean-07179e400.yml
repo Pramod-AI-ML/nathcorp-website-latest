@@ -19,11 +19,11 @@ jobs:
 
       # ✅ Install dependencies (fixes your earlier error)
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: pnpm install --legacy-peer-deps
 
       # ✅ Build Next.js static export
       - name: Build app
-        run: npm run build
+        run: pnpm run build
 
       # ✅ Deploy
       - name: Deploy to Azure Static Web Apps
