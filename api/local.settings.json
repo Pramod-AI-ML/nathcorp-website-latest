@@ -4,12 +4,12 @@
     "AzureWebJobsStorage": "",
     "FUNCTIONS_WORKER_RUNTIME": "node",
     "AZURE_CLIENT_ID": "14249986-fc72-47d1-a6eb-94b261cdcd24",
-    "AZURE_TENANT_ID" :"def59c70-cfce-4968-b5e8-3eb1c1b18a18",
-    "AZURE_CLIENT_SECRET" : "kYQ8Q~KvPihGkepO40j7CP04O-a8n3e-gqc21aRh",
-    "EMAIL_ENDPOINT" : "https://e404.india.communication.azure.com",
-    "EMAIL_SENDER_ADDRESS" : "DoNotReply@meindev.com",
-    "EMAIL_SALES_ADDRESS" : "sales@meindev.com",
-    "TEAM_INBOX_ADDRESS":"pramod.lohra@nathcorp.com",
+    "AZURE_TENANT_ID" :"1d36fda9-2f40-421f-857e-b653f08c7c82",
+    "AZURE_CLIENT_SECRET" : "23beb8d7-715e-42a3-8801-6d517bfd27ce",
+    "EMAIL_ENDPOINT" : "https://acs-amt-prod-001.india.communication.azure.com",
+    "EMAIL_SENDER_ADDRESS" : "noreply@nathcorp.com",
+    "EMAIL_SALES_ADDRESS" : "sales@nathcorp.com",
+    "TEAM_INBOX_ADDRESS":"rita.pradhan@nathcorp.com",
      "HR_INBOX_ADDRESS":     "AMT_Support@meindev.com"
   }
 }
