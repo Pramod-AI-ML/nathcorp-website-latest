@@ -19,7 +19,7 @@ jobs:
 
       # ✅ Install dependencies (fixes your earlier error)
       - name: Install dependencies
-        run: pnpm install --legacy-peer-deps
+        run: npm install --legacy-peer-deps
 
       # ✅ Build Next.js static export
       - name: Build app
