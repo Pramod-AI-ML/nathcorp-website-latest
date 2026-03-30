@@ -172,8 +172,24 @@ export default function CareersPage() {
     e.preventDefault()
     setIsSubmitting(true)
 
+    const tempFormData = new FormData();
+
+    tempFormData.append("firstName", formData.firstName);
+    tempFormData.append("lastName", formData.lastName);
+    tempFormData.append("email", formData.email);
+    tempFormData.append("phone", formData.phone);
+    tempFormData.append("coverLetter", formData.coverLetter);
+    tempFormData.append("linkedIn", formData.linkedIn);
+    tempFormData.append("portfolio", formData.portfolio);
+
+    // 3. Append the File (only if it exists)
+    if (formData.resume) {
+      // The backend usually looks for this key: "resume"
+      tempFormData.append("resume", formData.resume);
+    }
+
     // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    fetch("/api/submitResume", { method: "POST", body: tempFormData });
 
     toast({
       title: "Application Submitted",
