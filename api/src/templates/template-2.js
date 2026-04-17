@@ -44,7 +44,7 @@ function templateContactAcknowledgement({ name, phone = "", company = "", servic
   <!--<![endif]-->
   <title>We received your message</title>
   <!--[if mso]>
-  <xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
+  <xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsInch>96</o:PixelsInch></o:OfficeDocumentSettings></xml>
   <![endif]-->
   <style type="text/css">
     body, table, td, p, a { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
@@ -180,18 +180,18 @@ function templateContactAcknowledgement({ name, phone = "", company = "", servic
 </html>`;
 
   const plainText = [
-    `Hi ${name},`,
+    `Hi ${safeName},`,
     ``,
     `Thank you for contacting us. We've received your message and will be in touch shortly.`,
     ``,
     `── Submission Details ──────────────────`,
-    phone    ? `Phone:            ${phone}`    : null,
-    company  ? `Company:          ${company}`  : null,
-    service  ? `Service:          ${service}`  : null,
-    office   ? `Preferred Office: ${office}`   : null,
-    subject  ? `Subject:          ${subject}`  : null,
+    phone    ? `Phone:            ${safePhone}`    : null,
+    company  ? `Company:          ${safeCompany}`  : null,
+    service  ? `Service:          ${safeService}`  : null,
+    office   ? `Preferred Office: ${safeOffice}`   : null,
+    subject  ? `Subject:          ${safeSubject}`  : null,
     `────────────────────────────────────────`,
-    message  ? `\nYour Message:\n${message}\n` : null,
+    message  ? `\nYour Message:\n${safeMessage}\n` : null,
     `If you didn't submit this form, please disregard this email.`,
     ``,
     `© ${year} Your Company Name`,
