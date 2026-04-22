@@ -29,6 +29,7 @@ function templateContactAcknowledgement({ name, phone = "", company = "", servic
   const safeSubject     = esc(subject);
   const safeMessage     = esc(message);
   const safeMessageHtml = safeMessage.replace(/\n/g, "<br />");
+  const safeMessageText = safeMessage;
   const year            = new Date().getFullYear();
 
   const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -180,18 +181,18 @@ function templateContactAcknowledgement({ name, phone = "", company = "", servic
 </html>`;
 
   const plainText = [
-    `Hi ${name},`,
+    `Hi ${safeName},`,
     ``,
     `Thank you for contacting us. We've received your message and will be in touch shortly.`,
     ``,
     `── Submission Details ──────────────────`,
-    phone    ? `Phone:            ${phone}`    : null,
-    company  ? `Company:          ${company}`  : null,
-    service  ? `Service:          ${service}`  : null,
-    office   ? `Preferred Office: ${office}`   : null,
-    subject  ? `Subject:          ${subject}`  : null,
+    safePhone    ? `Phone:            ${safePhone}`    : null,
+    safeCompany  ? `Company:          ${safeCompany}`  : null,
+    safeService  ? `Service:          ${safeService}`  : null,
+    safeOffice   ? `Preferred Office: ${safeOffice}`   : null,
+    safeSubject  ? `Subject:          ${safeSubject}`  : null,
     `────────────────────────────────────────`,
-    message  ? `\nYour Message:\n${message}\n` : null,
+    safeMessageText  ? `\nYour Message:\n${safeMessageText}\n` : null,
     `If you didn't submit this form, please disregard this email.`,
     ``,
     `© ${year} Your Company Name`,
