@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowRight } from "lucide-react";
-import emailjs from "@emailjs/browser";
 
 
 const API_ENDPOINT = "/api/handleEmail";
@@ -173,10 +172,6 @@ export default function ContactFormModal({
     }
 
     setIsSubmitting(true);
-
-    const serviceId = "service_jvcfdxq";
-    const templateId = "template_03nshuf";
-    const publicKey = "uf1J58re3AQuJkwKz";
 
     const templateParams = {
       name: formData.name.trim(),
