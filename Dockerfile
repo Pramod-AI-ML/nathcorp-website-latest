@@ -21,10 +21,13 @@ WORKDIR /app
 RUN npm i -g pnpm
 
 # copy just what's needed
-COPY --from=base /app/node_modules ./node_modules
 COPY --from=base /app/package.json ./package.json
 COPY --from=base /app/.next       ./.next
 COPY --from=base /app/public      ./public   
+
+# install production dependencies only
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --prod --frozen-lockfile
 
 # (optional) expose the port your Next.js app listens on
 EXPOSE 3000
