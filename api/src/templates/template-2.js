@@ -20,13 +20,17 @@
 
 const { esc, detailRow } = require("../util/email-helpers");
 
+function sanitizeEmailText(value) {
+  return String(value == null ? "" : value).replace(/[\r\n]+/g, " ").trim();
+}
+
 function templateContactAcknowledgement({ name, phone = "", company = "", service = "", office = "", subject = "", message = "" }) {
   const safeName        = esc(name);
-  const safePhone       = esc(phone);
-  const safeCompany     = esc(company);
-  const safeService     = esc(service);
-  const safeOffice      = esc(office);
-  const safeSubject     = esc(subject);
+  const safePhone       = esc(sanitizeEmailText(phone));
+  const safeCompany     = esc(sanitizeEmailText(company));
+  const safeService     = esc(sanitizeEmailText(service));
+  const safeOffice      = esc(sanitizeEmailText(office));
+  const safeSubject     = esc(sanitizeEmailText(subject));
   const safeMessage     = esc(message);
   const safeMessageHtml = safeMessage.replace(/\n/g, "<br />");
   const year            = new Date().getFullYear();
@@ -180,18 +184,18 @@ function templateContactAcknowledgement({ name, phone = "", company = "", servic
 </html>`;
 
   const plainText = [
-    `Hi ${name},`,
+    `Hi ${sanitizeEmailText(name)},`,
     ``,
     `Thank you for contacting us. We've received your message and will be in touch shortly.`,
     ``,
     `── Submission Details ──────────────────`,
-    phone    ? `Phone:            ${phone}`    : null,
-    company  ? `Company:          ${company}`  : null,
-    service  ? `Service:          ${service}`  : null,
-    office   ? `Preferred Office: ${office}`   : null,
-    subject  ? `Subject:          ${subject}`  : null,
+    phone    ? `Phone:            ${sanitizeEmailText(phone)}`    : null,
+    company  ? `Company:          ${sanitizeEmailText(company)}`  : null,
+    service  ? `Service:          ${sanitizeEmailText(service)}`  : null,
+    office   ? `Preferred Office: ${sanitizeEmailText(office)}`   : null,
+    subject  ? `Subject:          ${sanitizeEmailText(subject)}`  : null,
     `────────────────────────────────────────`,
-    message  ? `\nYour Message:\n${message}\n` : null,
+    message  ? `\nYour Message:\n${sanitizeEmailText(message)}\n` : null,
     `If you didn't submit this form, please disregard this email.`,
     ``,
     `© ${year} Your Company Name`,
