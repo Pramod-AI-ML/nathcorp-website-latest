@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowRight } from "lucide-react";
-import emailjs from "@emailjs/browser";
 
 
 const API_ENDPOINT = "/api/handleEmail";
@@ -38,6 +37,8 @@ export default function ContactFormModal({
     phone: "",
     company: "",
     message1: "",
+    honeypot: "",
+    captchaToken: "",
   });
 
   const [errors, setErrors] = useState<any>({});
@@ -127,6 +128,10 @@ export default function ContactFormModal({
 
     e.preventDefault();
 
+    if (formData.honeypot) {
+      return;
+    }
+
     if (!formData.name.trim()) {
       toast({
         title: "Validation Error",
@@ -174,36 +179,22 @@ export default function ContactFormModal({
 
     setIsSubmitting(true);
 
-    const serviceId = "service_jvcfdxq";
-    const templateId = "template_03nshuf";
-    const publicKey = "uf1J58re3AQuJkwKz";
-
-    const templateParams = {
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      phone: formData.phone || "Not provided",
-      company: formData.company || "Not provided",
-      subject: serviceName,
-      message1: formData.message1,
-      interest: serviceName,
-      preferredLocation: "Any",
-      to_name: "NathCorp Team",
-    };
-
     try {
 
       const res = await fetch(API_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: templateParams.name,
-          email: templateParams.email,
-          phone: templateParams.phone,
-          company: templateParams.company,
-          service: templateParams.interest,
-          office: templateParams.preferredLocation,
-          subject: templateParams.subject,
-          message: templateParams.message1,
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          company: formData.company.trim(),
+          service: serviceName,
+          office: "Any",
+          subject: serviceName,
+          message: formData.message1.trim(),
+          honeypot: formData.honeypot,
+          captchaToken: formData.captchaToken,
         }),
       });
 
@@ -212,8 +203,6 @@ export default function ContactFormModal({
       if (!res.ok) {
         throw new Error(data.error ?? "Something went wrong.");
       }
-
-      // console.log("Email sent successfully!", res);
 
       toast({
         title: "Message sent successfully! 🎉",
@@ -226,6 +215,8 @@ export default function ContactFormModal({
         phone: "",
         company: "",
         message1: "",
+        honeypot: "",
+        captchaToken: "",
       });
 
       setErrors({});
@@ -372,6 +363,23 @@ export default function ContactFormModal({
             </p>
 
           </div>
+
+          <input
+            type="text"
+            name="honeypot"
+            value={formData.honeypot}
+            onChange={handleChange}
+            className="hidden"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+
+          <input
+            type="hidden"
+            name="captchaToken"
+            value={formData.captchaToken}
+            readOnly
+          />
 
           <Button
             type="submit"

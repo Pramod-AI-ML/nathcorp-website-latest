@@ -16,9 +16,10 @@
 const esc = (str) =>
   String(str ?? "")
     .replace(/&/g, "&amp;")
-    .replace(/</g,  "&lt;")
-    .replace(/>/g,  "&gt;")
-    .replace(/"/g,  "&quot;");
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 
 /**
  * Reusable Outlook/Word-engine-safe detail row.
@@ -34,13 +35,13 @@ const detailRow = (label, value) =>
             style="padding-top:8px;padding-bottom:8px;padding-left:0;padding-right:12px;
                    border-bottom:1px solid #e5e7eb;font-family:Arial,sans-serif;
                    font-size:13px;font-weight:bold;color:#374151;white-space:nowrap;">
-          ${label}
+          ${esc(label)}
         </td>
         <td valign="top"
             style="padding-top:8px;padding-bottom:8px;padding-left:0;padding-right:0;
                    border-bottom:1px solid #e5e7eb;font-family:Arial,sans-serif;
                    font-size:13px;color:#4b5563;word-break:break-word;">
-          ${value}
+          ${esc(value)}
         </td>
       </tr>`
     : "";
