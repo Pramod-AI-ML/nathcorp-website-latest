@@ -1,5 +1,16 @@
 # AI Fix Notes
 
+Session: seq-1777292319872-nfjk3yvny
+Repository: Pramod-AI-ML/nathcorp-website-latest
+
+- [1] (critical) components/contact-form-modal.tsx: Client-side contact form appears to use EmailJS and a direct API endpoint from the browser. If credentials, service IDs, or any secrets are embedded in the component or shipped to the client, they can be exposed. Ensure all sensitive email-sending logic is moved server-side, with secrets stored only in environment variables and validated on the backend.
+- [2] (high) .env.example: Sensitive Azure credential variables are included in a checked-in example file, and the file duplicates AZURE_TENANT_ID while also containing AZURE_CLIENT_SECRET. Even as placeholders, this encourages secret management by file and increases the risk of accidental real-secret commits. Recommend documenting secret storage via environment injection or a secret manager, and ensure no real values are ever committed.
+- [3] (high) api/package.json: The API package has no real test command; 'npm test' only echoes 'No tests yet...'. Given the repository's known testing risk, this is a significant quality gap for an Azure Functions backend handling email/identity flows. Add unit tests for function handlers and integration tests for email request validation and error handling.
+- [4] (high) api/src/util/email-helpers.js: The esc() helper escapes only a subset of HTML special characters and is only safe for HTML body content, not for attributes, URLs, or JavaScript contexts. If reused broadly, it can create a false sense of safety. Use context-specific encoding helpers and document strict usage boundaries.
+- [5] (high) app/careers/page.tsx: Marks the entire careers page as a client component with "use client", which increases bundle size and shifts rendering work to the browser. If most of the page is static or SEO-relevant, prefer a server component and isolate only the interactive form/upload parts into a smaller client component.
+
+# AI Fix Notes
+
 Session: seq-1776662340982-xxqdol8x5
 Repository: Pramod-AI-ML/nathcorp-website-latest
 
