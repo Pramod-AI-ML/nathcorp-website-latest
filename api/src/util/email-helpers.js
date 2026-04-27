@@ -8,8 +8,9 @@
 "use strict";
 
 /**
- * Escapes user-supplied strings before HTML injection.
- * Prevents XSS in email bodies rendered by web clients.
+ * Escapes user-supplied strings before HTML body injection only.
+ * Safe for HTML text/content contexts in email bodies, but not for attributes,
+ * URLs, JavaScript, or other contexts.
  * @param {unknown} str
  * @returns {string}
  */
