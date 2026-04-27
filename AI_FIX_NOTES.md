@@ -1,5 +1,16 @@
 # AI Fix Notes
 
+Session: seq-1777292623886-6huwxto14
+Repository: Pramod-AI-ML/nathcorp-website-latest
+
+- [1] (critical) .env.example: `AZURE_CLIENT_SECRET` is present in a checked-in example file. Even if blank, this is a sensitive secret placeholder and the file should strongly enforce secure secret handling via a secret manager and explicit warnings against committing real values.
+- [2] (critical) components/contact-form-modal.tsx: Client-side contact form imports and appears to use EmailJS directly in a browser component. This commonly exposes public service identifiers and can enable abuse/spam if no server-side validation, rate limiting, CAPTCHA, or anti-bot controls are enforced. Move email delivery to a protected server/API route and validate/sanitize all inputs server-side.
+- [3] (high) .env.example: Duplicate `AZURE_TENANT_ID` entry suggests poor environment management and increases the risk of configuration drift or accidental secret mishandling. Consolidate env keys and document which values are required vs optional.
+- [4] (high) api/package.json: The `test` script only echoes a placeholder message. This creates a false sense of test coverage and blocks automated verification of the API. Add real unit/integration tests and wire them into CI.
+- [5] (high) api/package.json: The API depends on Azure identity and email services but no security-focused scripts, linting, or test enforcement are defined. For a sensitive email/identity integration, add validation, input sanitization, and automated security checks.
+
+# AI Fix Notes
+
 Session: seq-1776662340982-xxqdol8x5
 Repository: Pramod-AI-ML/nathcorp-website-latest
 
