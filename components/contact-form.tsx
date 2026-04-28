@@ -7,8 +7,6 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
-import emailjs from "@emailjs/browser"
-
 
 const API_ENDPOINT = "/api/handleEmail";
 // const API_ENDPOINT= "http://localhost:7071/api/handleEmail";

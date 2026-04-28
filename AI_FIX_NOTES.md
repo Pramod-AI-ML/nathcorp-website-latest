@@ -1,5 +1,16 @@
 # AI Fix Notes
 
+Session: seq-1777357399790-r45aqvzug
+Repository: Pramod-AI-ML/nathcorp-website-latest
+
+- [1] (critical) .env.example: AZURE_CLIENT_SECRET is shown as an empty placeholder in a checked-in example file, which is acceptable only if it remains non-sensitive. However, the presence of duplicate AZURE_TENANT_ID entries and a TODO comment referencing secret handling suggests incomplete secret management guidance. Add explicit instructions to use a secrets manager and ensure no real credentials are ever committed.
+- [2] (critical) components/contact-form-modal.tsx: Client-side email sending via EmailJS is a high-risk pattern unless strictly validated and rate-limited server-side. It can expose abuse vectors (spam, automated submission) and may leak service configuration. Prefer a server-side API route/function with input validation, authentication/anti-abuse controls, and secrets kept only on the server.
+- [3] (critical) components/contact-form.tsx: Client-side email submission using EmailJS/API endpoint indicates potential exposure of email workflow details in the browser. If credentials, service IDs, or public endpoints are embedded or weakly controlled, this can be abused for spam or email-bombing. Ensure no secret keys are shipped to the client, add server-side validation, rate limiting, CAPTCHA, and abuse throttling.
+- [4] (critical) components/ContactServiceModal.tsx: This modal appears to handle direct email/contact submission from the client. Any client-triggered email flow is high risk for abuse unless the backend strictly validates input and enforces authentication/rate limits. Verify that only public-safe configuration is used on the client and that server-side protections exist.
+- [5] (high) api/package.json: The `test` script is a placeholder (`echo "No tests yet..."`), indicating no automated test coverage for the API. This is a major maintainability and regression-risk issue, especially for email/identity-related functionality.
+
+# AI Fix Notes
+
 Session: seq-1776662340982-xxqdol8x5
 Repository: Pramod-AI-ML/nathcorp-website-latest
 
